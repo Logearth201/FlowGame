@@ -152,7 +152,7 @@ details.lyrics p { margin: 6px 0 0; font-size: 0.76rem; color: var(--dim); }
 .note-row { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
 .note-row i { width: 36px; height: 36px; border-radius: 50%; display: block; }
 .i-tap { background: radial-gradient(circle, #fff 0 12%, var(--cyan) 30%, transparent 68%); box-shadow: inset 0 0 0 2px rgba(143, 243, 255, 0.7); }
-.i-pair { background: radial-gradient(circle at 50% 30%, #fff 0 8%, var(--rose) 18%, transparent 34%), radial-gradient(circle at 50% 72%, #fff 0 8%, var(--rose) 18%, transparent 34%); box-shadow: inset 0 0 0 2px rgba(255, 163, 218, 0.6); }
+.i-pair { border-radius: 0 !important; background: radial-gradient(circle at 16% 50%, #fff 0 8%, var(--rose) 16%, transparent 26%), radial-gradient(circle at 84% 50%, #fff 0 8%, var(--rose) 16%, transparent 26%), linear-gradient(transparent 44%, var(--rose) 44% 56%, transparent 56%) 8px 0 / calc(100% - 16px) 100% no-repeat; }
 .i-trail { background: radial-gradient(circle at 25% 70%, var(--gold) 0 10%, transparent 14%), radial-gradient(circle at 50% 50%, #fff 0 8%, var(--gold) 14%, transparent 22%), radial-gradient(circle at 75% 30%, var(--gold) 0 10%, transparent 14%); }
 .judge { display: grid; grid-template-columns: auto 1fr auto; gap: 2px 12px; font-variant-numeric: tabular-nums; font-size: 0.86rem; margin: 0; }
 .judge dt { font-weight: 700; }
@@ -262,6 +262,15 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
     </div>
 
     <div class="group">
+      <span class="label">レーンの数</span>
+      <div class="seg" role="group" aria-label="レーンの数" id="laneSeg">
+        <button type="button" data-v="3">3レーン</button>
+        <button type="button" data-v="4">4レーン</button>
+        <button type="button" data-v="5">5レーン</button>
+      </div>
+    </div>
+
+    <div class="group">
       <span class="label">むずかしさ</span>
       <div class="seg" role="group" aria-label="むずかしさ" id="diffSeg">
         <button type="button" data-v="easy">やさしい</button>
@@ -336,7 +345,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
           <text x="226" y="54" fill="#8ff3ff" font-size="11">光の玉</text>
           <text x="186" y="104" fill="#ffd58a" font-size="11">主人公</text>
         </svg>
-        <figcaption>道は左・中・右の3レーン。画面のどこを押しても、押した位置に一番近いレーンが反応します。</figcaption>
+        <figcaption>図は3レーンのとき。レーンの数はメニューで3〜5から選べます。道を縦に等分した範囲がそれぞれのレーンで、押した位置のレーンが反応します（道の外側を押したときは、一番端のレーン）。</figcaption>
       </figure>
     </section>
 
@@ -344,7 +353,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
       <h3>2. 3種類のノーツ</h3>
       <div class="notes3">
         <div class="note-row"><i class="i-tap"></i><div><p><b>光の玉（水色）── タップ</b></p><p>輪に重なった瞬間に、その玉があるレーンをタップ。主人公の位置は関係ありません。</p></div></div>
-        <div class="note-row"><i class="i-pair"></i><div><p><b>双子星（ピンク）── ダブルタップ</b></p><p>同じレーンに玉が<b>2つ続けて</b>やってきます。それぞれが輪に重なったときに1回ずつ、合わせて2回タップ。2つの間隔は曲のテンポで変わります（16分音符くらい）。</p></div></div>
+        <div class="note-row"><i class="i-pair"></i><div><p><b>双子星（ピンク）── 同時押し</b></p><p>2つのレーンに玉が<b>同時に</b>やってきて、光の線でつながっています（○━━○）。輪に重なった瞬間に、<b>2本の指で両方のレーンを同時に</b>タップします。曲の一番強い拍（サビの頭など）に出ます。</p></div></div>
         <div class="note-row"><i class="i-trail"></i><div><p><b>光の帯（金色）── ドラッグ</b></p><p>画面に指を置いたまま横にすべらせると、主人公が指についてきます。金色の粒の通り道に主人公を合わせておけば自動で集まります。タップは不要です。</p></div></div>
       </div>
     </section>
@@ -355,6 +364,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
         <li>片方の指で主人公を動かしながら、もう片方の指でタップできます（マルチタッチ対応）。</li>
         <li>押した瞬間がタップの判定です。押したまま12px以上すべらせると、そこからドラッグに切り替わります。</li>
         <li>光の玉は低い音ほど左、高い音ほど右に出やすくなっています。</li>
+        <li>双子星は、左右の手の人さし指で1つずつ押すと取りやすくなります。</li>
       </ul>
     </section>
 
@@ -383,7 +393,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
     <section>
       <h3>6. キーボード</h3>
       <ul>
-        <li><kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd>：画面上で左・中・右に見えているレーンをタップ（回転中も見た目どおり）</li>
+        <li>3レーン：<kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd> ／ 4レーン：<kbd>D</kbd> <kbd>F</kbd> <kbd>J</kbd> <kbd>K</kbd> ／ 5レーン：<kbd>D</kbd> <kbd>F</kbd> <kbd>Space</kbd> <kbd>J</kbd> <kbd>K</kbd>。見た目の左から順にキーが割り当たります（回転中も見た目どおり）。双子星は2つのキーを同時に押します。</li>
         <li><kbd>←</kbd> <kbd>→</kbd>（縦向きのときは <kbd>↑</kbd> <kbd>↓</kbd>）：主人公を隣のレーンへ移動</li>
         <li><kbd>Esc</kbd>：やめて曲選択に戻る</li>
       </ul>
@@ -1133,7 +1143,8 @@ async function analyzeAudio(buf, onStep) {
 
 /* =====================================================================
  * 3. 自動譜面化：解析結果からノーツを配置する
- *    tap = 光の玉 / pair = 双子星(同じレーンに2つ続けて来る) / trail = 光の帯
+ *    tap = 光の玉 / double = 双子星(2つのレーンに同時に来て、線でつながる) / trail = 光の帯
+ *    レーン数 N は 3〜5
  * ===================================================================== */
 const DIFF = {
   easy:   { sub: 1, perBar: 4,  gap: 0.4,  dbl: 0.05, lead: 2.1,  trailFromHigh: false, streamStep: 1,   vSub: 2, sustain: 1.5 },
@@ -1141,7 +1152,8 @@ const DIFF = {
   hard:   { sub: 4, perBar: 10, gap: 0.12, dbl: 0.12, lead: 1.35, trailFromHigh: true,  streamStep: 0.5, vSub: 4, sustain: 0.9 },
 };
 
-function makeChart(F, key, style = "rhythm") {
+function makeChart(F, key, style = "rhythm", N = 3) {
+  const toLane = (v) => Math.max(0, Math.min(N - 1, Math.floor(v * N)));
   const c = DIFF[key], step = F.beat / c.sub;
   const fAt = (t) => Math.round((t - F.tOff) / F.hopSec);
   const clampF = (f) => Math.max(0, Math.min(F.frames - 1, f));
@@ -1194,28 +1206,33 @@ function makeChart(F, key, style = "rhythm") {
     kept.push(s);
   }
   // 音色の明るさ(スペクトル重心)でレーンを決める：低い音は左、高い音は右
-  const voicedCen = []; for (let i = 0; i < F.frames; i += 4) if (F.energy[i] > 0.1) voicedCen.push(F.cen[i]);
-  const cLo = pct(voicedCen, 0.15), cHi = pct(voicedCen, 0.85) || 1;
-  const laneOfCen = (f) => { const v = (F.cen[f] - cLo) / ((cHi - cLo) || 1); return v < 0.36 ? 0 : v > 0.64 ? 2 : 1; };
+  // 選んだ音どうしの明るさの順位で振り分けるので、どのレーンにも同じくらい出る
+  const cenSorted = Float32Array.from(kept.map((k) => F.cen[k.f])).sort();
+  const laneOfCen = (f) => {
+    let lo = 0, hi = cenSorted.length;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (cenSorted[m] < F.cen[f]) lo = m + 1; else hi = m; }
+    return toLane(lo / (cenSorted.length || 1));
+  };
 
   const scs = kept.map((s) => s.sc).sort((a, b) => b - a);
   const dblThr = scs[Math.floor(scs.length * c.dbl)] ?? Infinity;
-  const pairGap = Math.max(0.13, F.beat / (key === "easy" ? 2 : 4));
+  // 同時押しの組み合わせ(左右に離れた2レーン)
+  const DBL = { 3: [[0, 2], [0, 1], [1, 2]], 4: [[0, 3], [1, 2], [0, 2], [1, 3]], 5: [[0, 4], [1, 3], [0, 2], [2, 4], [1, 4], [0, 3]] }[N];
   const notes = [];
-  let lastDbl = -99, lastLane = -1, rep = 0;
+  let lastDbl = -99, lastLane = -1, rep = 0, nDbl = 0;
   for (const s of kept) {
     const tot = F.low[s.f] + F.mid[s.f] + F.high[s.f] + 1e-6;
     let type = "tap";
-    if (s.pos === 0 && s.sc >= dblThr && s.t - lastDbl >= 2 * F.beat && s.e > 0.45) { type = "pair"; lastDbl = s.t; }
+    if (s.pos === 0 && s.sc >= dblThr && s.t - lastDbl >= 2 * F.beat && s.e > 0.45) { type = "double"; lastDbl = s.t; }
     else if (c.trailFromHigh && s.pos !== 0 && F.high[s.f] / tot > 0.5) type = "trail";
     let lane = laneOfCen(s.f);
     if (type !== "trail") {
-      if (lane === lastLane) { rep++; if (rep >= 2) { lane = lane === 1 ? (s.beatIdx % 2 ? 0 : 2) : 1; rep = 0; } } else rep = 0;
+      if (lane === lastLane) { rep++; if (rep >= 2) { lane += lane >= N - 1 ? -1 : lane <= 0 ? 1 : (s.beatIdx % 2 ? -1 : 1); rep = 0; } } else rep = 0;
       lastLane = lane;
     }
-    if (type === "pair") {
-      const id = notes.length;
-      notes.push({ t: s.t, type, lane, pid: id }, { t: s.t + pairGap, type, lane, pid: id, second: true });
+    if (type === "double") {
+      const id = notes.length, [a, b] = DBL[nDbl++ % DBL.length];
+      notes.push({ t: s.t, type, lane: a, pid: id }, { t: s.t, type, lane: b, pid: id, second: true });
     } else notes.push({ t: s.t, type, lane });
   }
   // うたの小節：歌の音符の頭にノーツ。音の高さでレーン、伸ばす音は光の帯
@@ -1230,7 +1247,7 @@ function makeChart(F, key, style = "rhythm") {
       const around = F.melNotes.filter((x) => Math.abs(x.t - m.t) < barLen * 2).map((x) => x.midi).sort((a, b) => a - b);
       const lo = around[Math.floor(around.length * 0.2)], hi = around[Math.floor(around.length * 0.8)];
       const v = hi - lo < 1 ? 0.5 : (m.midi - lo) / (hi - lo);
-      let lane = v < 0.34 ? 0 : v > 0.66 ? 2 : 1;
+      let lane = toLane(v);
       notes.push({ t: q, type: "tap", lane, vocal: true, midi: Math.round(m.midi) });
       lastT = q; prevLane = lane;
       if (m.dur >= F.beat * c.sustain) {
@@ -1244,7 +1261,7 @@ function makeChart(F, key, style = "rhythm") {
     for (let k = 0; k < 4; k += c.streamStep) {
       const t = info.start + k * F.beat;
       if (t < 0.2 || t > F.duration - 0.4 || notes.some((n) => Math.abs(n.t - t) < 0.15)) continue;
-      notes.push({ t, type: "trail", lane: 1 });
+      notes.push({ t, type: "trail", lane: Math.floor(N / 2) });
     }
   }
   notes.sort((a, b) => a.t - b.t);
@@ -1254,22 +1271,19 @@ function makeChart(F, key, style = "rhythm") {
     if (n.type !== "trail") continue;
     if (!n.hold) {
       const block = Math.floor(n.t / (F.beat * 32));
-      let lane = Math.round(1 + Math.sin((2 * Math.PI * n.t) / (F.beat * 8) + block * 1.3));
+      const c2 = (N - 1) / 2;
+      let lane = Math.round(c2 + c2 * Math.sin((2 * Math.PI * n.t) / (F.beat * 8) + block * 1.3));
       if (prevTrail && n.t - prevTrail.t < 0.5) lane = Math.max(prevTrail.lane - 1, Math.min(prevTrail.lane + 1, lane));
       n.lane = lane;
     }
     prevTrail = n;
   }
   let out = notes.filter((n) => n.type !== "trail" || !notes.some((m) => m.type !== "trail" && Math.abs(m.t - n.t) < 0.12));
-  // うたで同じレーンに短い間隔で続く2音は、双子星として見せる
-  for (let i = 0; i + 1 < out.length; i++) {
-    const a = out[i], b = out[i + 1];
-    if (a.type === "tap" && b.type === "tap" && a.vocal && b.vocal && a.lane === b.lane && a.midi === b.midi && b.t - a.t < 0.26) {
-      a.type = b.type = "pair"; a.pid = b.pid = i; b.second = true; i++;
-    }
-  }
-  const counts = { tap: 0, pair: 0, trail: 0 };
-  for (const n of out) { if (n.type === "pair") { if (!n.second) counts.pair++; } else counts[n.type]++; }
+  // 同時押しと同じ時刻に、そのレーン以外のノーツが重ならないようにする
+  const dblT = out.filter((n) => n.type === "double").map((n) => n.t);
+  out = out.filter((n) => n.type === "double" || !dblT.some((t) => Math.abs(t - n.t) < 0.1));
+  const counts = { tap: 0, double: 0, trail: 0 };
+  for (const n of out) { if (n.type === "double") { if (!n.second) counts.double++; } else counts[n.type]++; }
   return { notes: out, counts, lead: c.lead };
 }
 
@@ -1403,7 +1417,7 @@ const COL = {
   cyan: [143, 243, 255], rose: [255, 163, 218], gold: [255, 213, 138], violet: [180, 160, 255],
   mint: [160, 255, 214], white: [255, 248, 236], orange: [255, 170, 110], ice: [205, 235, 255],
 };
-const NOTE_COL = { tap: COL.cyan, pair: COL.rose, trail: COL.gold };
+const NOTE_COL = { tap: COL.cyan, double: COL.rose, trail: COL.gold };
 const glowCache = new Map();
 function glowSprite(rgb) {
   const k = rgb.join(",");
@@ -1466,7 +1480,10 @@ const THEMES = {
   },
 };
 
-const LANES = [-0.64, 0, 0.64];
+// レーン：道幅(-1.1〜1.1)を N 等分した中心
+let LANES = [], LANE_W = 0;
+function setLanes(N) { LANE_W = 2.2 / N; LANES = Array.from({ length: N }, (_, i) => -1.1 + LANE_W * (i + 0.5)); }
+setLanes(3);
 const K = 5.5, FAR = 2.6;
 let geo = {}, FS = { t: 0, X: 0, HX: 0, Y: 0, HY: 0 }, COURSE = STRAIGHT;
 function proj(dt, lx) {
@@ -1621,7 +1638,7 @@ function drawWorld(t, view, dt) {
   for (let i = rows.length - 1; i >= 0; i--) g.lineTo(rows[i].R.x, rows[i].R.y);
   g.closePath(); g.fill();
   g.globalCompositeOperation = "lighter";
-  for (const lx of [-1.1, -0.32, 0.32, 1.1]) {
+  for (const lx of [-1.1, ...LANES.slice(1).map((v) => v - LANE_W / 2), 1.1]) {
     const edge = Math.abs(lx) > 1;
     g.strokeStyle = rgba(edge ? th.bulbs[0] : COL.violet, edge ? 0.5 : 0.2); g.lineWidth = edge ? 2 : 1; g.globalAlpha = 1;
     g.beginPath();
@@ -1734,13 +1751,13 @@ function drawWorld(t, view, dt) {
   g.strokeStyle = rgba(COL.white, 0.35 + 0.35 * pulse); g.lineWidth = 2; g.globalAlpha = 1;
   g.beginPath(); g.moveTo(cx - rw * 1.1, jy); g.lineTo(cx + rw * 1.1, jy); g.stroke();
   for (const lx of LANES) {
-    const here = Math.abs(player.x - lx) < 0.34;
+    const here = Math.abs(player.x - lx) < LANE_W / 2;
     g.strokeStyle = rgba(here ? COL.gold : COL.cyan, (here ? 0.5 : 0.3) + 0.3 * pulse); g.lineWidth = 2;
-    g.beginPath(); g.ellipse(cx + lx * rw, jy, rw * 0.2, rw * 0.06, 0, 0, Math.PI * 2); g.stroke();
+    g.beginPath(); g.ellipse(cx + lx * rw, jy, rw * LANE_W * 0.36, rw * 0.06, 0, 0, Math.PI * 2); g.stroke();
   }
   if (view.zones) {
-    for (let i = 0; i < 3; i++) {
-      const x0 = cx + (i === 0 ? -1.1 : i === 1 ? -0.32 : 0.32) * rw, x1 = cx + (i === 0 ? -0.32 : i === 1 ? 0.32 : 1.1) * rw;
+    for (let i = 0; i < LANES.length; i++) {
+      const x0 = cx + (LANES[i] - LANE_W / 2) * rw, x1 = cx + (LANES[i] + LANE_W / 2) * rw;
       g.globalAlpha = 0.08 + 0.05 * Math.sin(t * 4 + i); g.fillStyle = rgba(COL.cyan, 1);
       g.fillRect(x0 + 3, jy - rw * 0.35, x1 - x0 - 6, rw * 0.5);
     }
@@ -1760,19 +1777,21 @@ function drawWorld(t, view, dt) {
       g.strokeStyle = rgba(COL.cyan, 0.8 * fade); g.lineWidth = Math.max(1, 2.5 * p.s); g.globalAlpha = 1;
       g.beginPath(); g.arc(p.x, p.y - 26 * p.s, 20 * p.s, 0, Math.PI * 2); g.stroke();
       if (view.theme === "aquarium") glow(COL.white, p.x - 7 * p.s, p.y - 33 * p.s, 7 * p.s, fade);
-    } else if (n.type === "pair") {
+    } else if (n.type === "double") {
+      // 同時押し：2つの玉を光の線でつなぐ ○━━○
       if (!n.second) {
-        const m = notes[i + 1];
-        if (m && m.pid === n.pid && !m.judged) {
+        const m = notes.find((x) => x.pid === n.pid && x.second);
+        if (m && !m.judged) {
           const q = proj(m.t - t, LANES[m.lane]);
-          g.strokeStyle = rgba(COL.rose, 0.55 * fade); g.lineWidth = Math.max(1.5, 8 * p.s); g.globalAlpha = 1;
+          g.strokeStyle = rgba(COL.rose, 0.7 * fade); g.lineWidth = Math.max(2, 7 * p.s); g.globalAlpha = 1;
+          g.beginPath(); g.moveTo(p.x, p.y - 26 * p.s); g.lineTo(q.x, q.y - 26 * q.s); g.stroke();
+          g.strokeStyle = rgba(COL.white, 0.6 * fade); g.lineWidth = Math.max(1, 2 * p.s);
           g.beginPath(); g.moveTo(p.x, p.y - 26 * p.s); g.lineTo(q.x, q.y - 26 * q.s); g.stroke();
         }
       }
       glow(COL.rose, p.x, p.y - 26 * p.s, 50 * p.s, fade);
       g.strokeStyle = rgba(COL.rose, 0.9 * fade); g.lineWidth = Math.max(1, 2.5 * p.s); g.globalAlpha = 1;
       g.beginPath(); g.arc(p.x, p.y - 26 * p.s, 21 * p.s, 0, Math.PI * 2); g.stroke();
-      g.beginPath(); g.arc(p.x, p.y - 26 * p.s, 27 * p.s, 0, Math.PI * 2); g.stroke();
     } else {
       const nx = notes[i + 1];
       if (nx && nx.type === "trail" && nx.t - n.t < 0.7 && !nx.judged) {
@@ -1823,7 +1842,8 @@ function drawWorld(t, view, dt) {
       if (!n.hint || n.judged) continue;
       const d0 = n.t - t; if (d0 > LEAD * 0.95 || d0 < -0.1) continue;
       const p = proj(d0, LANES[n.lane]), s = toScreen(p.x, p.y - 26 * p.s - 30 * Math.max(0.4, p.s));
-      const label = n.type === "tap" ? "タップ" : n.type === "pair" ? (n.second ? "もう1回" : "2回タップ") : "ドラッグで通る";
+      if (n.type === "double" && n.second) continue;
+      const label = n.type === "tap" ? "タップ" : n.type === "double" ? "2本の指で同時にタップ" : "ドラッグで通る";
       const a = Math.min(1, (LEAD * 0.95 - d0) / 0.3);
       const w = g.measureText(label).width + 16;
       g.globalAlpha = a; g.fillStyle = "rgba(10,9,32,0.75)";
@@ -1834,7 +1854,7 @@ function drawWorld(t, view, dt) {
   }
   if (view.zones) {
     g.font = `700 ${Math.round(Math.min(16, W * 0.04))}px "Zen Maru Gothic", sans-serif`;
-    ["左", "中", "右"].forEach((lab, i) => { const s = toScreen(cx + LANES[i] * rw, jy + rw * 0.13); g.fillStyle = "rgba(143,243,255,0.9)"; g.fillText(lab, s.x, s.y); });
+    LANES.forEach((lx, i) => { const s = toScreen(cx + lx * rw, jy + rw * 0.13); g.fillStyle = "rgba(143,243,255,0.9)"; g.fillText(String(i + 1), s.x, s.y); });
     const s = toScreen(cx, jy - rw * 0.55);
     g.fillStyle = "rgba(245,240,255,0.92)";
     g.fillText("光が輪に重なったら、そのレーンをタップ", s.x, s.y);
@@ -1868,7 +1888,7 @@ function ensureAC() {
   return ac;
 }
 const reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-const settings = { diff: "normal", style: "rhythm", motion: reduced ? "straight" : "spin", stage: "auto", hints: true };
+const settings = { lanes: 3, diff: "normal", style: "rhythm", motion: reduced ? "straight" : "spin", stage: "auto", hints: true };
 try { Object.assign(settings, JSON.parse(localStorage.getItem("lumina-settings") || "{}")); } catch (_) {}
 const saveSettings = () => { try { localStorage.setItem("lumina-settings", JSON.stringify(settings)); } catch (_) {} };
 
@@ -1886,8 +1906,8 @@ const player = { x: 0, target: 0 };
 function themeFor(S) { return settings.stage === "auto" ? S.theme : settings.stage; }
 const cache = new Map();
 function chartFor(S) {
-  const k = `${S.id}|${settings.diff}|${settings.style}`;
-  if (!cache.has(k)) cache.set(k, makeChart(S.F, settings.diff, settings.style));
+  const k = `${S.id}|${settings.diff}|${settings.style}|${settings.lanes}`;
+  if (!cache.has(k)) cache.set(k, makeChart(S.F, settings.diff, settings.style, settings.lanes));
   return cache.get(k);
 }
 function courseFor(S) {
@@ -1905,7 +1925,7 @@ function viewFor(S, chart) {
 }
 
 const GRADES = { BRILLIANT: { v: 1, c: COL.gold }, GREAT: { v: 0.75, c: COL.cyan }, GOOD: { v: 0.45, c: COL.violet } };
-function laneFromVX(vx) { const lx = (vx - geo.cx) / geo.rw; return lx < -0.32 ? 0 : lx > 0.32 ? 2 : 1; }
+function laneFromVX(vx) { const lx = (vx - geo.cx) / geo.rw; return Math.max(0, Math.min(LANES.length - 1, Math.floor((lx + 1.1) / LANE_W))); }
 function notePos(n) { const p = proj(0, LANES[n.lane]); return { x: p.x, y: p.y - 26 }; }
 function songTime() { return ac.currentTime - play.startAt - (ac.outputLatency || 0); }
 const gradeOf = (err) => err < 0.05 ? "BRILLIANT" : err < 0.1 ? "GREAT" : "GOOD";
@@ -1915,9 +1935,9 @@ function award(n, grade) {
   const gr = GRADES[grade];
   play.sum += gr.v; play.counts[grade]++;
   play.combo++; play.maxCombo = Math.max(play.maxCombo, play.combo);
-  const p = notePos(n), isPair = n.type === "pair";
-  burst(p.x, p.y, isPair ? COL.rose : gr.c, isPair && n.second ? 26 : 16, isPair && n.second ? 1.3 : 1);
-  popup(isPair && n.second ? `${grade} ×2` : grade, p.x, p.y - 30, gr.c);
+  const p = notePos(n), dbl = n.type === "double";
+  burst(p.x, p.y, dbl ? COL.rose : gr.c, dbl ? 22 : 16, dbl ? 1.2 : 1);
+  popup(grade, p.x, p.y - 30, gr.c);
 }
 function miss(n) {
   n.judged = true; play.combo = 0; play.counts.MISS++;
@@ -1945,7 +1965,7 @@ function updateJudge(t) {
     if (n.judged) continue;
     if (n.type === "trail") {
       if (t >= n.t) {
-        if (Math.abs(player.x - LANES[n.lane]) < 0.34) {
+        if (Math.abs(player.x - LANES[n.lane]) < LANE_W * 0.55) {
           n.judged = true; P.sum += 1; P.counts.TRAIL++; P.combo++; P.maxCombo = Math.max(P.maxCombo, P.combo);
           const p = notePos(n); burst(p.x, p.y + 16, COL.gold, 7, 0.5);
         } else if (t > n.t + 0.08) miss(n);
@@ -1957,7 +1977,7 @@ function updateJudge(t) {
 
 function startGame() {
   const S = song(); if (!S || !S.F) return;
-  ensureAC();
+  ensureAC(); setLanes(settings.lanes);
   const chart = chartFor(S);
   const src = ac.createBufferSource(); src.buffer = S.buffer;
   const gain = ac.createGain(); gain.gain.value = 0.9;
@@ -1966,7 +1986,7 @@ function startGame() {
   src.start(startAt);
   const notes = chart.notes.map((n) => ({ ...n }));
   if (settings.hints) {
-    const left = { tap: 3, pair: 4, trail: 3 };
+    const left = { tap: 3, double: 4, trail: 3 };
     for (const n of notes) if (left[n.type] > 0) { n.hint = true; left[n.type]--; }
   }
   play = {
@@ -2014,12 +2034,13 @@ cv.addEventListener("pointermove", (e) => {
   const p = ptrs.get(e.pointerId); if (!p || state !== "play") return;
   const v = toVirtual(e.clientX, e.clientY);
   if (!p.drag && Math.abs(v.x - p.vx0) > 12) p.drag = true;
-  if (p.drag) player.target = Math.max(-0.8, Math.min(0.8, (v.x - geo.cx) / geo.rw));
+  if (p.drag) player.target = Math.max(-1.1 + LANE_W / 2, Math.min(1.1 - LANE_W / 2, (v.x - geo.cx) / geo.rw));
 });
 const endPtr = (e) => ptrs.delete(e.pointerId);
 cv.addEventListener("pointerup", endPtr);
 cv.addEventListener("pointercancel", endPtr);
-// キーボード：見た目の左・中・右に合わせる
+// キーボード：見た目の左から順にキーを割り当てる
+const KEYS = { 3: ["j", "k", "l"], 4: ["d", "f", "j", "k"], 5: ["d", "f", " ", "j", "k"] };
 function screenLaneOrder() {
   const horiz = Math.abs(Math.cos(ROLL)) >= Math.abs(Math.sin(ROLL));
   return LANES.map((lx, i) => ({ i, p: toScreen(geo.cx + lx * geo.rw, geo.jy) }))
@@ -2033,12 +2054,13 @@ window.addEventListener("keydown", (e) => {
   if (state !== "play" || e.repeat) return;
   const k = e.key.toLowerCase(), order = screenLaneOrder();
   const dirs = { arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0], arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1] };
-  if (k === "j") hit(order[0]); else if (k === "k") hit(order[1]); else if (k === "l") hit(order[2]);
+  const keyLane = KEYS[LANES.length].indexOf(k);
+  if (keyLane >= 0) hit(order[keyLane]);
   else if (dirs[k]) {
     const dot = dirs[k][0] * Math.cos(ROLL) + dirs[k][1] * Math.sin(ROLL);
     if (Math.abs(dot) < 0.4) return;
     const cur = LANES.reduce((bi, v, i) => Math.abs(v - player.target) < Math.abs(LANES[bi] - player.target) ? i : bi, 0);
-    player.target = LANES[Math.max(0, Math.min(2, cur + Math.sign(dot)))];
+    player.target = LANES[Math.max(0, Math.min(LANES.length - 1, cur + Math.sign(dot)))];
   } else if (k === "escape") toMenu();
   else return;
   e.preventDefault();
@@ -2132,9 +2154,9 @@ function renderChips() {
 }
 function bindSeg(id, key) {
   for (const b of document.querySelectorAll(`#${id} button`)) {
-    b.setAttribute("aria-pressed", String(settings[key] === b.dataset.v));
+    b.setAttribute("aria-pressed", String(String(settings[key]) === b.dataset.v));
     b.addEventListener("click", () => {
-      settings[key] = b.dataset.v; saveSettings();
+      settings[key] = key === "lanes" ? Number(b.dataset.v) : b.dataset.v; saveSettings();
       for (const o of document.querySelectorAll(`#${id} button`)) o.setAttribute("aria-pressed", String(o === b));
       refresh();
     });
@@ -2164,18 +2186,19 @@ function drawPreview() {
   x.lineTo(w, h); x.closePath();
   const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "rgba(180,160,255,0.35)"); gr.addColorStop(1, "rgba(180,160,255,0.02)");
   x.fillStyle = gr; x.fill();
-  const rows = { pair: h * 0.18, tap: h * 0.45, trail: h * 0.74 };
+  const rows = { double: h * 0.18, tap: h * 0.45, trail: h * 0.74 };
   for (const n of chart.notes) {
     x.fillStyle = rgba(NOTE_COL[n.type], 0.85);
-    x.fillRect((n.t / dur) * w, rows[n.type] - 5 + (n.lane - 1) * 3, 1.5, 6);
+    x.fillRect((n.t / dur) * w, rows[n.type] - 5 + (n.lane - (LANES.length - 1) / 2) * 2.5, 1.5, 6);
   }
   $("#sBpm").textContent = Math.round(F.bpm);
   $("#sTap").textContent = chart.counts.tap;
-  $("#sDbl").textContent = chart.counts.pair;
+  $("#sDbl").textContent = chart.counts.double;
   $("#sTrail").textContent = chart.counts.trail;
   demo = { view: { ...viewFor(S, chart), fireworks: true }, dur };
 }
 function refresh() {
+  setLanes(settings.lanes);
   renderSongList();
   $("#startBtn").disabled = !(song() && song().F);
   updateStyleHint();
@@ -2291,10 +2314,10 @@ function openAnalysis() {
   x.font = "12px 'Zen Maru Gothic', sans-serif"; x.fillStyle = "#f5f0ff";
   for (const l of S.lyricMap || []) x.fillText(l.text, tx(l.t0) + 2, 190);
   // 生成したノーツ
-  for (const n of chart.notes) { x.fillStyle = rgba(NOTE_COL[n.type], 0.95); x.fillRect(tx(n.t) - 1, 258 + n.lane * 14, 3, 9); }
+  for (const n of chart.notes) { x.fillStyle = rgba(NOTE_COL[n.type], 0.95); x.fillRect(tx(n.t) - 1, 258 + n.lane * (40 / LANES.length), 3, Math.max(4, 32 / LANES.length)); }
   x.fillStyle = "#aaa3d4"; x.font = "10px sans-serif";
   for (let s = 0; s < dur; s += 10) x.fillText(fmtTime(s), tx(s) + 2, h - 5);
-  x.fillText("スペクトル", 4, 106); x.fillText("音の立ち上がり", 4, 128); x.fillText("うた・音の高さ", 4, 186); x.fillText("ノーツ(左/中/右)", 4, 254);
+  x.fillText("スペクトル", 4, 106); x.fillText("音の立ち上がり", 4, 128); x.fillText("うた・音の高さ", 4, 186); x.fillText("ノーツ(レーンごと)", 4, 254);
 }
 
 $("#startBtn").addEventListener("click", startGame);
@@ -2308,7 +2331,7 @@ $("#openAnalysis").addEventListener("click", openAnalysis);
 $("#closeAnalysis").addEventListener("click", () => showOverlay("#analysis", false));
 $("#hintToggle").checked = settings.hints;
 $("#hintToggle").addEventListener("change", (e) => { settings.hints = e.target.checked; saveSettings(); });
-bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style"); bindSeg("motionSeg", "motion");
+bindSeg("laneSeg", "lanes"); bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style"); bindSeg("motionSeg", "motion");
 renderChips();
 window.addEventListener("resize", () => { if (state === "menu") drawPreview(); });
 
