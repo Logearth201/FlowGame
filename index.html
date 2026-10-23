@@ -154,7 +154,7 @@ details.lyrics p { margin: 6px 0 0; font-size: 0.76rem; color: var(--dim); }
 .note-row i { width: 36px; height: 36px; border-radius: 50%; display: block; }
 .i-tap { background: radial-gradient(circle, #fff 0 12%, var(--cyan) 30%, transparent 68%); box-shadow: inset 0 0 0 2px rgba(143, 243, 255, 0.7); }
 .i-pair { border-radius: 0 !important; background: radial-gradient(circle at 16% 50%, #fff 0 8%, var(--rose) 16%, transparent 26%), radial-gradient(circle at 84% 50%, #fff 0 8%, var(--rose) 16%, transparent 26%), linear-gradient(transparent 44%, var(--rose) 44% 56%, transparent 56%) 8px 0 / calc(100% - 16px) 100% no-repeat; }
-.i-flick { background: radial-gradient(circle at 50% 62%, #fff 0 10%, #a0ffd6 22%, transparent 42%), conic-gradient(from 150deg at 50% 18%, transparent 0 0deg, #fff 0 60deg, transparent 60deg) 0 0 / 100% 40% no-repeat; box-shadow: inset 0 0 0 2px rgba(160, 255, 214, 0.6); }
+.i-flick { border-radius: 0 !important; background: #c4ff60; clip-path: polygon(50% 0, 95% 85%, 50% 62%, 5% 85%); filter: drop-shadow(0 0 6px #c4ff60); }
 .i-trail { background: radial-gradient(circle at 25% 70%, var(--gold) 0 10%, transparent 14%), radial-gradient(circle at 50% 50%, #fff 0 8%, var(--gold) 14%, transparent 22%), radial-gradient(circle at 75% 30%, var(--gold) 0 10%, transparent 14%); }
 .judge { display: grid; grid-template-columns: auto 1fr auto; gap: 2px 12px; font-variant-numeric: tabular-nums; font-size: 0.86rem; margin: 0; }
 .judge dt { font-weight: 700; }
@@ -282,15 +282,6 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
       <p class="hint-text" id="styleHint"></p>
     </div>
 
-    <div class="group">
-      <span class="label">コースの動き</span>
-      <div class="seg" role="group" aria-label="コースの動き" id="motionSeg">
-        <button type="button" data-v="straight">まっすぐ</button>
-        <button type="button" data-v="curve">カーブと坂</button>
-        <button type="button" data-v="spin">回転も</button>
-      </div>
-    </div>
-
     <div class="chart">
       <span class="label">自動生成された譜面</span>
       <canvas id="preview" aria-label="譜面の密度と曲の盛り上がり"></canvas>
@@ -356,8 +347,8 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
       <div class="notes3">
         <div class="note-row"><i class="i-tap"></i><div><p><b>光の玉（水色）── タップ</b></p><p>輪に重なった瞬間に、その玉があるレーンをタップ。主人公の位置は関係ありません。</p></div></div>
         <div class="note-row"><i class="i-pair"></i><div><p><b>双子星・三つ星（ピンク）── 同時押し</b></p><p>2つのレーンに玉が<b>同時に</b>やってきて、光の線でつながっています（○━━○）。輪に重なった瞬間に、<b>2本の指で両方のレーンを同時に</b>タップします。曲の一番強い拍（サビの頭など）に出ます。Pro では3つ同時（○━○━○）の三つ星も出ます。</p></div></div>
-        <div class="note-row"><i class="i-flick"></i><div><p><b>流れ星（緑・矢印つき）── フリック</b></p><p>輪に重なった瞬間にタップして、そのまま<b>矢印の向きに指をはじきます</b>（上・左・右）。押したタイミングで判定が決まり、はじかずに指を離すと MISS です。フレーズの終わりに出ます。Normal 以上。</p></div></div>
-        <div class="note-row"><i class="i-trail"></i><div><p><b>光の帯（金色）── ドラッグ</b></p><p>道の上に金色の<b>光の道</b>が敷かれて流れてきます。画面に指を置いたまま横にすべらせると主人公が指についてくるので、光の道をなぞるように合わせます。次の光の道が近づくと、足もとにそのレーンの金色の目印と「›››」の矢印が出ます。タップは不要です。</p></div></div>
+        <div class="note-row"><i class="i-flick"></i><div><p><b>流れ星（黄緑の矢じり）── フリック</b></p><p>大きな黄緑の<b>矢じり</b>に彗星の尾がつき、道にもレーン幅の矢印が描かれています。近づくと足もとの輪にも矢印が出ます。輪に重なった瞬間にタップして、そのまま<b>矢印の向きに指をはじきます</b>（上・左・右）。押したタイミングで判定が決まり、はじかずに指を離すと MISS です。フレーズの終わりに出ます。Normal 以上。</p></div></div>
+        <div class="note-row"><i class="i-trail"></i><div><p><b>光の帯（金色）── ロングノーツ</b></p><p>金色の玉（始点）から、道の上に金色の<b>光の道</b>がのびています。始点が輪に重なったらタップして、<b>そのまま指を離さず</b>光の道をなぞります。道がほかのレーンへ曲がったら、押したまま指をすべらせてついていきます。終わりで指を離すタイミングの判定はありません。次の光の道が近づくと、足もとに金色の目印と「›››」の矢印が出ます。</p></div></div>
       </div>
     </section>
 
@@ -374,7 +365,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
     <section>
       <h3>5. 両手で遊ぶコツ</h3>
       <ul>
-        <li>片方の指で主人公を動かしながら、もう片方の指でタップできます（マルチタッチ対応）。</li>
+        <li>片方の指で光の道を押さえたまま、もう片方の指でほかのノーツをタップできます（マルチタッチ対応）。</li>
         <li>押した瞬間がタップの判定です。押したまま12px以上すべらせると、そこからドラッグに切り替わります。</li>
         <li>光の玉は低い音ほど左、高い音ほど右に出やすくなっています。</li>
         <li>双子星は、左右の手の人さし指で1つずつ押すと取りやすくなります。</li>
@@ -383,12 +374,19 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
 
     <section>
       <h3>6. コースの動き</h3>
+      <p>コースの動きは選ぶものではなく、<b>曲と難易度で決まっています</b>。曲の盛り上がる場所で動き、難易度が上がるほど大きく動きます。</p>
+      <dl class="judge">
+        <dt>Easy</dt><dd>ゆるいカーブとのぼり坂だけ。回転なし</dd><dd></dd>
+        <dt>Normal</dt><dd>カーブと丘。サビで1回だけ上下が入れかわる(180°)</dd><dd></dd>
+        <dt>Hard</dt><dd>大きめのカーブ。180°と90°の回転が最大3回</dd><dd></dd>
+        <dt>Pro</dt><dd>いちばん大きく曲がり、回転の回数も多い</dd><dd></dd>
+      </dl>
       <ul>
         <li><b>カーブ</b>：道が左右に曲がります。曲がると景色が横に流れます。レーンは道に沿ってついてきます。</li>
         <li><b>坂・のぼり</b>：曲が盛り上がる手前で、道が空へのぼっていきます。</li>
         <li><b>回転</b>：サビに入ると、世界ごと90°や180°回ります。180°のときはノーツが<b>下から上へ</b>流れてきます。回る1小節前に「回転」の予告が出ます。</li>
         <li>回転中も、光が見えている場所をそのまま押せば大丈夫です。</li>
-        <li>酔いやすい人はメニューの「コースの動き」を「まっすぐ」にしてください。</li>
+        <li>端末で「視差効果を減らす(動きを減らす)」をオンにしていると、コースはまっすぐになります。</li>
       </ul>
     </section>
 
@@ -407,7 +405,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
       <h3>8. キーボード</h3>
       <ul>
         <li>3レーン：<kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd> ／ 4レーン：<kbd>D</kbd> <kbd>F</kbd> <kbd>J</kbd> <kbd>K</kbd> ／ 5レーン：<kbd>D</kbd> <kbd>F</kbd> <kbd>Space</kbd> <kbd>J</kbd> <kbd>K</kbd>。レーンの数が変わると、使うキーも自動で切りかわります。見た目の左から順にキーが割り当たります（回転中も見た目どおり）。双子星は2つ（三つ星は3つ）のキーを同時に、流れ星はキーを押すだけで取れます。</li>
-        <li><kbd>←</kbd> <kbd>→</kbd>（縦向きのときは <kbd>↑</kbd> <kbd>↓</kbd>）：主人公を隣のレーンへ移動</li>
+        <li>光の道（ロングノーツ）は、そのレーンのキーを押したままにします。道が曲がったら、次のレーンのキーに持ちかえます。</li>
         <li><kbd>Esc</kbd>：やめて曲選択に戻る</li>
       </ul>
     </section>
@@ -1366,7 +1364,8 @@ function makeChart(F, key, style = "rhythm") {
   for (const n of out) {
     n.N = Nat(n.t);
     if (n.type !== "trail") continue;
-    if (!lastTr || n.t - lastTr.t > 0.75 || lastTr.N !== n.N) sid++;
+    // 流れの先頭は「始点」：ロングノーツの押しはじめ。ほかは押したままなぞる点
+    if (!lastTr || n.t - lastTr.t > 0.75 || lastTr.N !== n.N) { sid++; n.head = true; }
     n.sid = sid; lastTr = n;
   }
   const counts = { tap: 0, chord: 0, trail: 0, flick: 0 };
@@ -1379,7 +1378,16 @@ function makeChart(F, key, style = "rhythm") {
  * 3b. コース：カーブ・坂・回転を、曲の盛り上がりから自動で作る
  *     kx = 左右の曲がり(横方向の加速度)、ky = のぼり・くだり、rot = 世界の回転
  * ===================================================================== */
-function makeCourse(F, mode) {
+// コースの動きは曲と難易度で決まる(ユーザーは選ばない)。
+// 曲からは「どこで盛り上がるか」、難易度からは「どこまで動かすか」を決める
+const COURSE_BY_DIFF = {
+  easy:   { curve: 0.55, hills: false, spins: [],                               maxSpins: 0, spinGap: 99, hold: 8 },
+  normal: { curve: 0.9,  hills: true,  spins: [Math.PI],                        maxSpins: 1, spinGap: 16, hold: 8 },
+  hard:   { curve: 1.1,  hills: true,  spins: [Math.PI, Math.PI / 2, -Math.PI / 2], maxSpins: 3, spinGap: 8, hold: 8 },
+  pro:    { curve: 1.35, hills: true,  spins: [Math.PI / 2, Math.PI, -Math.PI / 2], maxSpins: 6, spinGap: 4, hold: 6 },
+};
+function makeCourse(F, key, still = false) {
+  const cfg = COURSE_BY_DIFF[key] || COURSE_BY_DIFF.normal, mode = still ? "straight" : "auto";
   const step = 0.02, start = -6, n = Math.ceil((F.duration + 14) / step);
   const kx = new Float32Array(n), ky = new Float32Array(n), rotT = new Float32Array(n);
   const events = [];
@@ -1393,22 +1401,22 @@ function makeCourse(F, mode) {
     const addWave = (arr, a, b, fn) => { for (let i = idx(a); i <= idx(b); i++) { const u = (start + i * step - a) / (b - a); if (u >= 0 && u <= 1) arr[i] += fn(u); } };
     for (let ps = first, i = 0; ps < F.duration - bar; ps += bar * 4, i++) {
       const e = eAvg(ps, ps + bar * 4), jump = e - prevE; prevE = e;
-      if (mode === "spin") {
+      if (cfg.spins.length) {
         if (rotState !== 0 && (ps >= rotUntil || jump < -0.15)) { events.push({ t: ps, to: 0 }); rotState = 0; lastRot = ps; }
-        else if (rotState === 0 && i >= 2 && jump > 0.1 && e > 0.45 && ps - lastRot > bar * 8) {
-          const to = [Math.PI, Math.PI / 2, -Math.PI / 2][rotCount++ % 3];
-          events.push({ t: ps, to }); rotState = to; rotUntil = ps + bar * 8;
+        else if (rotState === 0 && rotCount < cfg.maxSpins && i >= 2 && jump > 0.1 && e > 0.45 && ps - lastRot > bar * cfg.spinGap) {
+          const to = cfg.spins[rotCount++ % cfg.spins.length];
+          events.push({ t: ps, to }); rotState = to; rotUntil = ps + bar * cfg.hold;
         }
       }
       for (let h = 0; h < 2; h++) {
         const a = ps + h * bar * 2, b = a + bar * 2;
         if (i === 0 && h === 0) continue;
-        const r = rnd(), amp = (1.3 + 1.1 * rnd()) * (0.6 + 0.6 * e);
+        const r = rnd(), amp = (1.3 + 1.1 * rnd()) * (0.6 + 0.6 * e) * cfg.curve;
         const nextE = eAvg(b, b + bar * 4);
         if (h === 1 && nextE - e > 0.1) addWave(ky, a, b, (u) => 1.6 * Math.sin(2 * Math.PI * u));          // サビ前：空へのぼる
         else if (h === 1 && e - nextE > 0.15) addWave(ky, a, b, (u) => -1.4 * Math.sin(2 * Math.PI * u));  // 静かになる前：くだる
         else if (r < 0.62) { if (rnd() < 0.7) side = -side; addWave(kx, a, b, (u) => side * amp * Math.sin(Math.PI * u)); }
-        else if (r < 0.82) addWave(ky, a, b, (u) => 1.2 * Math.sin(4 * Math.PI * u));                       // 丘
+        else if (r < 0.82 && cfg.hills) addWave(ky, a, b, (u) => 1.2 * Math.sin(4 * Math.PI * u));          // 丘
       }
     }
     // 回転：1小節かけてなめらかに
@@ -1503,9 +1511,9 @@ resize();
 
 const COL = {
   cyan: [143, 243, 255], rose: [255, 163, 218], gold: [255, 213, 138], violet: [180, 160, 255],
-  mint: [160, 255, 214], white: [255, 248, 236], orange: [255, 170, 110], ice: [205, 235, 255],
+  mint: [160, 255, 214], lime: [196, 255, 96], white: [255, 248, 236], orange: [255, 170, 110], ice: [205, 235, 255],
 };
-const NOTE_COL = { tap: COL.cyan, chord: COL.rose, trail: COL.gold, flick: COL.mint };
+const NOTE_COL = { tap: COL.cyan, chord: COL.rose, trail: COL.gold, flick: COL.lime };
 const glowCache = new Map();
 function glowSprite(rgb) {
   const k = rgb.join(",");
@@ -1609,6 +1617,55 @@ function firework(x, y) {
   }
 }
 function popup(text, vx, vy, rgb) { popups.push({ text, vx, vy, c: rgb, age: 0 }); }
+
+// ---- 流れ星(フリック)：ほかのノーツと形も色もはっきり変える ----
+const flickAngle = (dir) => dir === "left" ? Math.PI : dir === "right" ? 0 : -Math.PI / 2;
+// 矢じり(後ろに切れ込みのある矢印)。A は向き、R は大きさ
+function arrowHead(x, y, A, R, col, a) {
+  const ca = Math.cos(A), sa = Math.sin(A), P = (u, v) => [x + ca * u - sa * v, y + sa * u + ca * v];
+  const pts = [P(R, 0), P(-0.7 * R, 0.85 * R), P(-0.25 * R, 0), P(-0.7 * R, -0.85 * R)];
+  const op = g.globalCompositeOperation; g.globalCompositeOperation = "source-over";
+  g.globalAlpha = Math.min(1, a);
+  g.beginPath(); pts.forEach(([px, py], i) => (i ? g.lineTo(px, py) : g.moveTo(px, py))); g.closePath();
+  g.fillStyle = rgba(COL.white, 0.95); g.fill();
+  g.strokeStyle = rgba(col, 1); g.lineWidth = Math.max(1.5, R * 0.18); g.stroke();
+  g.globalAlpha = 1; g.globalCompositeOperation = op;
+}
+function drawFlick(n, d0, p, fade, t) {
+  // 遠くにあっても小さくなりすぎないよう、最小の大きさを決めておく
+  const S = Math.max(p.s, 0.38), A = flickAngle(n.dir), ca = Math.cos(A), sa = Math.sin(A);
+  const lx = laneX(n.lane, n.N || 3), hw = (2.2 / (n.N || 3)) * 0.42, a = 0.07 * LEAD;
+  // 流れ星が来るレーン全体を、手前まで黄緑の光の帯で照らす(遠くからでも分かる)
+  const beam = [];
+  for (let k = 0; k <= 8; k++) beam.push(Math.max(0, d0) * (1 - k / 8));
+  g.globalAlpha = 1; g.beginPath();
+  beam.forEach((dd, k) => { const q = proj(dd, lx - hw); k ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y); });
+  for (let k = beam.length - 1; k >= 0; k--) { const q = proj(beam[k], lx + hw); g.lineTo(q.x, q.y); }
+  g.closePath(); g.fillStyle = rgba(COL.lime, (0.1 + 0.08 * Math.sin(t * 12)) * fade); g.fill();
+  // 道に描いた、レーン幅いっぱいの矢印
+  const road = n.dir === "up" ? [[0, a], [hw, -a], [0, -a * 0.3], [-hw, -a]]
+    : [[(n.dir === "left" ? -1 : 1) * hw, 0], [(n.dir === "left" ? 1 : -1) * hw * 0.4, a], [(n.dir === "left" ? 1 : -1) * hw * 0.05, 0], [(n.dir === "left" ? 1 : -1) * hw * 0.4, -a]];
+  g.globalAlpha = 1; g.beginPath();
+  road.forEach(([u, v], i) => { const q = proj(d0 + v, lx + u); i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y); });
+  g.closePath(); g.fillStyle = rgba(COL.lime, 0.42 * fade); g.fill();
+  g.strokeStyle = rgba(COL.white, 0.7 * fade); g.lineWidth = Math.max(1, 2 * S); g.stroke();
+  // 本体：彗星の尾 + 大きな矢じり + 脈打つ輪
+  const cx2 = p.x, cy2 = p.y - 34 * S, R = 30 * S;
+  const tail = g.createLinearGradient(cx2, cy2, cx2 - ca * 90 * S, cy2 - sa * 90 * S);
+  tail.addColorStop(0, rgba(COL.lime, 0.85 * fade)); tail.addColorStop(1, rgba(COL.lime, 0));
+  g.strokeStyle = tail; g.lineWidth = Math.max(2, 18 * S); g.lineCap = "round";
+  g.beginPath(); g.moveTo(cx2, cy2); g.lineTo(cx2 - ca * 90 * S, cy2 - sa * 90 * S); g.stroke(); g.lineCap = "butt";
+  glow(COL.lime, cx2, cy2, 70 * S, fade);
+  const pul = 0.5 + 0.5 * Math.sin(t * 14);
+  g.strokeStyle = rgba(COL.lime, (0.5 + 0.5 * pul) * fade); g.lineWidth = Math.max(1.5, 3 * S);
+  g.beginPath(); g.arc(cx2, cy2, R * (1.15 + 0.12 * pul), 0, Math.PI * 2); g.stroke();
+  arrowHead(cx2, cy2, A, R, COL.lime, fade);
+  // はじく向きに流れる「≫」
+  for (let k = 0; k < 2; k++) {
+    const ph = (t * 2.2 + k * 0.5) % 1, dist = R * (1.5 + ph * 1.4);
+    arrowHead(cx2 + ca * dist, cy2 + sa * dist, A, R * 0.42, COL.lime, fade * (1 - ph));
+  }
+}
 
 function drawWorld(t, view, dt) {
   const th = THEMES[view.theme] || THEMES.promenade, C = view.course || STRAIGHT;
@@ -1909,6 +1966,15 @@ function drawWorld(t, view, dt) {
     }
   }
   view.trailNear = !!(nextTrail && nextTrail.t - t < 1.2);
+  // 足もとのガイド：次の流れ星のレーンの輪に、はじく向きの大きな矢印
+  const nextFlick = notes.find((n) => n.type === "flick" && !n.judged && !n.armed && n.t - t > -0.1 && n.t - t < 0.8);
+  if (nextFlick) {
+    const gx = cx + NX(nextFlick) * rw, k2 = 1 - Math.max(0, nextFlick.t - t) / 0.8, A = flickAngle(nextFlick.dir);
+    g.strokeStyle = rgba(COL.lime, 0.5 + 0.5 * k2); g.lineWidth = 3 + 2 * k2;
+    g.beginPath(); g.ellipse(gx, jy, rw * (2.2 / (nextFlick.N || 3)) * 0.42, rw * 0.08, 0, 0, Math.PI * 2); g.stroke();
+    glow(COL.lime, gx, jy, 50 + 20 * k2, 0.4 + 0.4 * k2);
+    arrowHead(gx + Math.cos(A) * 30, jy - 34 + Math.sin(A) * 30, A, 16 + 6 * k2, COL.lime, 0.5 + 0.5 * k2);
+  }
   // 足もとのガイド：次の光の帯のレーンに、金色の目印と矢印
   if (nextTrail && nextTrail.t - t < 1.2) {
     const tx2 = NX(nextTrail), on = Math.abs(player.x - tx2) < (2.2 / (nextTrail.N || 3)) * 0.5;
@@ -1956,20 +2022,22 @@ function drawWorld(t, view, dt) {
       g.strokeStyle = rgba(COL.rose, 0.9 * fade); g.lineWidth = Math.max(1, 2.5 * p.s); g.globalAlpha = 1;
       g.beginPath(); g.arc(p.x, p.y - 26 * p.s, 21 * p.s, 0, Math.PI * 2); g.stroke();
     } else if (n.type === "flick") {
-      // 流れ星：はじく向きの矢印つき
-      const cy2 = p.y - 26 * p.s, r = 22 * p.s;
-      glow(COL.mint, p.x, cy2, 52 * p.s, fade);
-      g.strokeStyle = rgba(COL.mint, 0.9 * fade); g.lineWidth = Math.max(1, 2.5 * p.s); g.globalAlpha = 1;
-      g.beginPath(); g.arc(p.x, cy2, 20 * p.s, 0, Math.PI * 2); g.stroke();
-      const ang = n.dir === "left" ? Math.PI : n.dir === "right" ? 0 : -Math.PI / 2, ca = Math.cos(ang), sa = Math.sin(ang);
-      const ax = p.x + ca * r * 1.5, ay = cy2 + sa * r * 1.5;
-      g.fillStyle = rgba(COL.white, fade);
-      g.beginPath(); g.moveTo(ax + ca * r * 0.7, ay + sa * r * 0.7);
-      g.lineTo(ax - sa * r * 0.55, ay + ca * r * 0.55); g.lineTo(ax + sa * r * 0.55, ay - ca * r * 0.55); g.closePath(); g.fill();
+      drawFlick(n, d0, p, fade, t);
     } else {
-      glow(COL.gold, p.x, p.y - 10 * p.s, 46 * p.s, fade);
+      if (n.head) {
+        // ロングノーツの始点：ここをタップして、そのまま押し続ける
+        const cy2 = p.y - 26 * p.s;
+        glow(COL.gold, p.x, cy2, 56 * p.s, fade);
+        g.strokeStyle = rgba(COL.gold, 0.95 * fade); g.lineWidth = Math.max(1.5, 3 * p.s); g.globalAlpha = 1;
+        g.beginPath(); g.arc(p.x, cy2, 22 * p.s, 0, Math.PI * 2); g.stroke();
+        g.beginPath(); g.arc(p.x, cy2, 13 * p.s, 0, Math.PI * 2); g.fillStyle = rgba(COL.white, 0.9 * fade); g.fill();
+        g.strokeStyle = rgba(COL.gold, 0.6 * fade); g.lineWidth = Math.max(2, 5 * p.s);
+        g.beginPath(); g.moveTo(p.x, cy2 + 22 * p.s); g.lineTo(p.x, p.y); g.stroke();
+        continue;
+      }
+      glow(COL.gold, p.x, p.y - 10 * p.s, 30 * p.s, fade);
       g.fillStyle = rgba(COL.white, fade); g.globalAlpha = 1;
-      const r = 10 * p.s;
+      const r = 7 * p.s;
       g.beginPath(); g.moveTo(p.x, p.y - 10 * p.s - r); g.lineTo(p.x + r * 0.6, p.y - 10 * p.s); g.lineTo(p.x, p.y - 10 * p.s + r); g.lineTo(p.x - r * 0.6, p.y - 10 * p.s); g.closePath(); g.fill();
     }
   }
@@ -2012,7 +2080,7 @@ function drawWorld(t, view, dt) {
       const p = proj(d0, NX(n)), s = toScreen(p.x, p.y - 26 * p.s - 30 * Math.max(0.4, p.s));
       if (n.type === "chord" && n.second) continue;
       const label = n.type === "tap" ? "タップ" : n.type === "chord" ? `${n.size}本の指で同時にタップ`
-        : n.type === "flick" ? `タップして${n.dir === "left" ? "←" : n.dir === "right" ? "→" : "↑"}にはじく` : "ドラッグで光の道をなぞる";
+        : n.type === "flick" ? `タップして${n.dir === "left" ? "←" : n.dir === "right" ? "→" : "↑"}にはじく` : "タップして、押したまま光の道をなぞる";
       const a = Math.min(1, (LEAD * 0.95 - d0) / 0.3);
       const w = g.measureText(label).width + 16;
       g.globalAlpha = a; g.fillStyle = "rgba(10,9,32,0.75)";
@@ -2068,7 +2136,7 @@ function ensureAC() {
   return ac;
 }
 const reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-const settings = { diff: "normal", style: "rhythm", motion: reduced ? "straight" : "spin", stage: "auto", hints: true };
+const settings = { diff: "normal", style: "rhythm", stage: "auto", hints: true };
 try { Object.assign(settings, JSON.parse(localStorage.getItem("lumina-settings") || "{}")); } catch (_) {}
 if (!DIFF[settings.diff]) settings.diff = "normal";
 const saveSettings = () => { try { localStorage.setItem("lumina-settings", JSON.stringify(settings)); } catch (_) {} };
@@ -2092,8 +2160,9 @@ function chartFor(S) {
   return cache.get(k);
 }
 function courseFor(S) {
-  const k = `${S.id}|course|${settings.motion}`;
-  if (!cache.has(k)) cache.set(k, makeCourse(S.F, settings.motion));
+  // コースは曲と難易度で決まる。動きを減らす設定の端末では、まっすぐにする
+  const k = `${S.id}|course|${settings.diff}|${reduced}`;
+  if (!cache.has(k)) cache.set(k, makeCourse(S.F, settings.diff, reduced));
   return cache.get(k);
 }
 function viewFor(S, chart) {
@@ -2116,8 +2185,16 @@ function award(n, grade) {
   const gr = GRADES[grade];
   play.sum += gr.v; play.counts[grade]++;
   play.combo++; play.maxCombo = Math.max(play.maxCombo, play.combo);
-  const p = notePos(n), col = n.type === "chord" ? COL.rose : n.type === "flick" ? COL.mint : gr.c;
+  const p = notePos(n), col = n.type === "chord" ? COL.rose : n.type === "flick" ? COL.lime : gr.c;
   burst(p.x, p.y, col, n.type === "tap" ? 16 : 22, n.type === "tap" ? 1 : 1.2);
+  if (n.type === "flick") {
+    // はじいた向きに飛び散る光
+    const A = flickAngle(n.dir);
+    for (let i = 0; i < 24; i++) {
+      const a = A + (Math.random() - 0.5) * 0.6, v = 300 + Math.random() * 500;
+      particles.push({ x: p.x, y: p.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 0.5, age: 0, r: 5 + Math.random() * 8, c: COL.lime });
+    }
+  }
   popup(grade, p.x, p.y - 30, gr.c);
 }
 function miss(n) {
@@ -2131,7 +2208,7 @@ function hit(lane) {
   for (let i = play.head; i < play.notes.length; i++) {
     const n = play.notes[i];
     if (n.t - t > 0.2) break;
-    if (n.judged || n.type === "trail" || n.lane !== lane) continue;
+    if (n.judged || (n.type === "trail" && !n.head) || n.lane !== lane) continue;
     const d = Math.abs(n.t - t);
     if (d < bd) { bd = d; best = n; }
   }
@@ -2139,7 +2216,7 @@ function hit(lane) {
   if (best.type !== "flick") { award(best, gradeOf(bd)); return null; }
   // 流れ星：押した時刻で判定を決め、はじく動きを待つ
   best.armed = true; best.armT = t; best.err = bd;
-  const p = notePos(best); burst(p.x, p.y, COL.mint, 6, 0.5);
+  const p = notePos(best); burst(p.x, p.y, COL.lime, 10, 0.5);
   return best;
 }
 function resolveFlick(n, dx, dy) {
@@ -2154,9 +2231,11 @@ function updateJudge(t) {
     const n = P.notes[i];
     if (n.t > t + 0.05) break;
     if (n.judged) continue;
-    if (n.type === "trail") {
+    if (n.type === "trail" && n.head) { if (t > n.t + 0.16) miss(n); }
+    else if (n.type === "trail") {
+      // ロングノーツの途中：その位置を押さえている指(またはキー)があれば取れる。離すタイミングの判定はなし
       if (t >= n.t) {
-        if (Math.abs(player.x - laneX(n.lane, n.N)) < (2.2 / n.N) * 0.55) {
+        if (holding(n)) {
           n.judged = true; P.sum += 1; P.counts.TRAIL++; P.combo++; P.maxCombo = Math.max(P.maxCombo, P.combo);
           const p = notePos(n); burst(p.x, p.y + 16, COL.gold, 7, 0.5);
         } else if (t > n.t + 0.08) miss(n);
@@ -2224,14 +2303,16 @@ cv.addEventListener("pointerdown", (e) => {
   if (state !== "play") return;
   e.preventDefault();
   const v = toVirtual(e.clientX, e.clientY);
-  const p = { vx0: v.x, vy0: v.y, drag: false, flick: null };
+  const p = { vx0: v.x, vy0: v.y, vx: v.x, drag: false, flick: null };
   ptrs.set(e.pointerId, p);
   try { cv.setPointerCapture(e.pointerId); } catch (_) {}
   p.flick = hit(laneFromVX(v.x));
+  if (!p.flick) player.target = (v.x - geo.cx) / geo.rw;
 });
 cv.addEventListener("pointermove", (e) => {
   const p = ptrs.get(e.pointerId); if (!p || state !== "play") return;
   const v = toVirtual(e.clientX, e.clientY), dx = v.x - p.vx0, dy = v.y - p.vy0;
+  p.vx = v.x;
   if (p.flick) {
     if (Math.hypot(dx, dy) > 26) { resolveFlick(p.flick, dx, dy); p.flick = null; p.flicked = true; }
     return;
@@ -2249,6 +2330,19 @@ cv.addEventListener("pointerup", endPtr);
 cv.addEventListener("pointercancel", endPtr);
 // キーボード：見た目の左から順にキーを割り当てる
 const KEYS = { 3: ["j", "k", "l"], 4: ["d", "f", "j", "k"], 5: ["d", "f", " ", "j", "k"] };
+const kbHeld = new Set();
+window.addEventListener("keyup", (e) => kbHeld.delete(e.key.toLowerCase()));
+window.addEventListener("blur", () => kbHeld.clear());
+// ロングノーツ：そのレーンを押さえている指かキーがあるか
+function holding(n) {
+  const w = 2.2 / n.N, x = laneX(n.lane, n.N);
+  for (const p of ptrs.values()) if (Math.abs((p.vx - geo.cx) / geo.rw - x) < w * 0.75) return true;
+  if (kbHeld.size) {
+    const order = screenLaneOrder(), keys = KEYS[LANES.length] || [];
+    for (const k of kbHeld) { const i = keys.indexOf(k); if (i >= 0 && order[i] === n.lane) return true; }
+  }
+  return false;
+}
 function screenLaneOrder() {
   const horiz = Math.abs(Math.cos(ROLL)) >= Math.abs(Math.sin(ROLL));
   return LANES.map((lx, i) => ({ i, p: toScreen(geo.cx + lx * geo.rw, geo.jy) }))
@@ -2261,12 +2355,14 @@ window.addEventListener("keydown", (e) => {
   }
   if (state !== "play" || e.repeat) return;
   const k = e.key.toLowerCase(), order = screenLaneOrder();
+  kbHeld.add(k);
   const dirs = { arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0], arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1] };
   const keyLane = KEYS[LANES.length].indexOf(k);
   if (keyLane >= 0) {
     // キーボードでは、流れ星もキーを押すだけで取れる
     const f = hit(order[keyLane]);
     if (f) { f.armed = false; award(f, gradeOf(f.err)); }
+    player.target = LANES[order[keyLane]];
   }
   else if (dirs[k]) {
     const dot = dirs[k][0] * Math.cos(ROLL) + dirs[k][1] * Math.sin(ROLL);
@@ -2551,7 +2647,7 @@ $("#openAnalysis").addEventListener("click", openAnalysis);
 $("#closeAnalysis").addEventListener("click", () => showOverlay("#analysis", false));
 $("#hintToggle").checked = settings.hints;
 $("#hintToggle").addEventListener("change", (e) => { settings.hints = e.target.checked; saveSettings(); });
-bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style"); bindSeg("motionSeg", "motion");
+bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style");
 renderChips();
 window.addEventListener("resize", () => { if (state === "menu") drawPreview(); });
 
