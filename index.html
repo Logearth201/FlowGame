@@ -297,6 +297,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
       <button class="linkbtn" id="openAnalysis" type="button">曲の解析結果を見る</button>
     </div>
 
+    <label class="check"><input type="checkbox" id="soundToggle" checked> タップしたときにノーツ音を鳴らす</label>
     <label class="check"><input type="checkbox" id="hintToggle" checked> プレイ中にヒントを表示する</label>
 
     <div class="row">
@@ -348,7 +349,7 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
         <div class="note-row"><i class="i-tap"></i><div><p><b>光の玉（水色）── タップ</b></p><p>輪に重なった瞬間に、その玉があるレーンをタップ。主人公の位置は関係ありません。</p></div></div>
         <div class="note-row"><i class="i-pair"></i><div><p><b>双子星・三つ星（ピンク）── 同時押し</b></p><p>2つのレーンに玉が<b>同時に</b>やってきて、光の線でつながっています（○━━○）。輪に重なった瞬間に、<b>2本の指で両方のレーンを同時に</b>タップします。曲の一番強い拍（サビの頭など）に出ます。Pro では3つ同時（○━○━○）の三つ星も出ます。</p></div></div>
         <div class="note-row"><i class="i-flick"></i><div><p><b>流れ星（黄緑の矢じり）── フリック</b></p><p>大きな黄緑の<b>矢じり</b>に彗星の尾がつき、道にもレーン幅の矢印が描かれています。近づくと足もとの輪にも矢印が出ます。輪に重なった瞬間にタップして、そのまま<b>矢印の向きに指をはじきます</b>（上・左・右）。押したタイミングで判定が決まり、はじかずに指を離すと MISS です。フレーズの終わりに出ます。Normal 以上。</p></div></div>
-        <div class="note-row"><i class="i-trail"></i><div><p><b>光の帯（金色）── ロングノーツ</b></p><p>金色の玉（始点）から、道の上に金色の<b>光の道</b>がのびています。始点が輪に重なったらタップして、<b>そのまま指を離さず</b>光の道をなぞります。道がほかのレーンへ曲がったら、押したまま指をすべらせてついていきます。終わりで指を離すタイミングの判定はありません。次の光の道が近づくと、足もとに金色の目印と「›››」の矢印が出ます。</p></div></div>
+        <div class="note-row"><i class="i-trail"></i><div><p><b>光の帯（金色）── ロングノーツ</b></p><p>金色の玉（始点）から、道の上に金色の<b>光の道</b>がのびています。始点が輪に重なったらタップして、<b>そのまま指を離さず</b>光の道をなぞります。スコアは始点と途中の点ごとに入り、<b>最後まで取りきると、流れ全体で1コンボ</b>になります。途中で1つでも落とすと、コンボが切れます。道がほかのレーンへ曲がったら、押したまま指をすべらせてついていきます。終わりで指を離すタイミングの判定はありません。次の光の道が近づくと、足もとに金色の目印と「›››」の矢印が出ます。</p></div></div>
       </div>
     </section>
 
@@ -576,6 +577,68 @@ const SONGS = [
     ],
   },
   {
+    id: "rock", title: "流星ドライブ", theme: "carnival", bpm: 168, rock: true, padVol: 0,
+    timbre: { arp: "pluck", lead: "dist" },
+    // ロック：E マイナー、Em - C - G - D
+    prog: [
+      { root: 40, pad: [52, 55, 59, 64], arp: [64, 67, 71, 76, 79, 76, 71, 67] },
+      { root: 36, pad: [48, 52, 55, 60], arp: [60, 64, 67, 72, 76, 72, 67, 64] },
+      { root: 43, pad: [55, 59, 62, 67], arp: [62, 67, 71, 74, 79, 74, 71, 67] },
+      { root: 38, pad: [50, 54, 57, 62], arp: [62, 66, 69, 74, 78, 74, 69, 66] },
+    ],
+    melodies: {
+      // 2小節のギターリフ
+      riff: [[0, 52, 0.5], [0.5, 52, 0.5], [1, 55, 0.5], [1.5, 57, 0.5], [2, 59, 1], [3, 57, 0.5], [3.5, 55, 0.5],
+             [4, 52, 0.5], [4.5, 52, 0.5], [5, 55, 0.5], [5.5, 59, 0.5], [6, 62, 1], [7, 59, 1]],
+      main: [
+        [0, 71, 1], [1, 74, 0.5], [1.5, 76, 1.5], [3, 74, 1], [4, 72, 1], [5, 71, 0.5], [5.5, 69, 0.5], [6, 67, 2],
+        [8, 67, 0.5], [8.5, 69, 0.5], [9, 71, 1], [10, 74, 1], [11, 79, 1], [12, 78, 1.5], [13.5, 76, 0.5], [14, 74, 2],
+        [16, 76, 1], [17, 79, 0.5], [17.5, 81, 1.5], [19, 79, 1], [20, 76, 1], [21, 74, 0.5], [21.5, 72, 0.5], [22, 71, 2],
+        [24, 71, 0.5], [24.5, 74, 0.5], [25, 79, 1], [26, 78, 1], [27, 74, 1], [28, 76, 4],
+      ],
+    },
+    sparkle: [88, 91, 93, 95],
+    sections: [
+      { n: "intro", bars: 4, gtr: "power", kick: "rock", snare: true, hat: "8", crash: true, mel: "lead", melSet: "riff", melVol: 0.16 },
+      { n: "A", bars: 8, gtr: "chug", bass: "eighth", kick: "rock", snare: true, hat: "8", crash: true },
+      { n: "B", bars: 8, gtr: "power", bass: "eighth", kick: "rock", snare: true, hat: "8", mel: "lead", melSet: "riff", melOct: 12, melVol: 0.1, fill: true, riser: true },
+      { n: "C", bars: 8, gtr: "chug", bass: "eighth", kick: "rock", snare: true, hat: "8", crash: true, mel: "lead", melVol: 0.17 },
+      { n: "D", bars: 4, gtr: "half", bass: "half", kick: "halftime", snare: "half", hat: "8off", mel: "lead", melSet: "riff", melVol: 0.12, fill: true },
+      { n: "C", bars: 8, gtr: "chug", bass: "eighth", kick: "rock", snare: true, hat: "8", crash: true, mel: "oct", melVol: 0.17, fill: true },
+      { n: "outro", bars: 2 },
+    ],
+  },
+  {
+    id: "neon", title: "ネオン・ハイウェイ", theme: "neon", bpm: 180, hardKick: true,
+    timbre: { arp: "piano", lead: "supersaw" },
+    // 音ゲーでおなじみの王道進行：F - G - Em - Am
+    prog: [
+      { root: 41, pad: [57, 60, 64, 65], arp: [72, 76, 77, 81, 84, 81, 77, 76] },
+      { root: 43, pad: [55, 59, 62, 67], arp: [74, 79, 83, 86, 83, 79, 74, 71] },
+      { root: 40, pad: [55, 59, 64, 67], arp: [71, 76, 79, 83, 88, 83, 79, 76] },
+      { root: 45, pad: [57, 60, 64, 69], arp: [72, 76, 81, 84, 88, 84, 81, 76] },
+    ],
+    melodies: { main: [
+      [0, 72, 0.5], [0.5, 74, 0.5], [1, 76, 1], [2, 77, 0.5], [2.5, 76, 0.5], [3, 72, 1],
+      [4, 74, 0.5], [4.5, 76, 0.5], [5, 79, 1], [6, 77, 0.5], [6.5, 76, 0.5], [7, 74, 1],
+      [8, 76, 0.5], [8.5, 79, 0.5], [9, 83, 1], [10, 81, 0.5], [10.5, 79, 0.5], [11, 76, 1],
+      [12, 81, 1.5], [13.5, 79, 0.5], [14, 76, 1], [15, 72, 1],
+      [16, 72, 0.5], [16.5, 74, 0.5], [17, 76, 1], [18, 81, 1], [19, 84, 1],
+      [20, 83, 1], [21, 81, 0.5], [21.5, 79, 0.5], [22, 79, 2],
+      [24, 79, 0.5], [24.5, 81, 0.5], [25, 83, 1], [26, 84, 1], [27, 86, 1], [28, 88, 2], [30, 84, 2],
+    ] },
+    sparkle: [91, 93, 96, 98, 100],
+    sections: [
+      { n: "intro", bars: 4, pad: 0.05, arp: "16", riser: true },
+      { n: "A", bars: 8, pad: 0.03, bass: "offbeat", kick: "four", hat: "16", arp: "16", stab: true, crash: true },
+      { n: "B", bars: 8, pad: 0.035, bass: "offbeat", kick: "four", clap: true, hat: "8off", arp: "8", mel: "lead", melVol: 0.11, roll: true, riser: true },
+      { n: "C", bars: 8, bass: "offbeat", kick: "four", clap: true, hat: "16", arp: "16", stab: true, mel: "oct", melVol: 0.13, sparkle: true, crash: true },
+      { n: "D", bars: 4, pad: 0.06, arp: "16", mel: "lead", melVol: 0.1, roll: true, riser: true },
+      { n: "C", bars: 8, bass: "offbeat", kick: "four", clap: true, hat: "16", arp: "16", stab: true, mel: "oct", melVol: 0.13, sparkle: true, crash: true },
+      { n: "outro", bars: 2 },
+    ],
+  },
+  {
     id: "song", title: "灯りのうた", theme: "promenade", bpm: 104, vocal: true,
     timbre: { arp: "epiano", lead: "tri" },
     prog: [
@@ -641,10 +704,10 @@ async function synthSong(spec) {
     return { b0: al / a0, b2: -al / a0, a1: -2 * Math.cos(w) / a0, a2: (1 - al) / a0 };
   }
   function noiseHit(t, secs, f, q, tau, vol, pan, rv) {
-    const n = Math.floor(secs * sr), b = new Float32Array(n), off = Math.floor(rnd() * (sr - n)), c = bp(f, q);
+    const n = Math.floor(secs * sr), b = new Float32Array(n), off = Math.floor(rnd() * sr), c = bp(f, q);
     let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
     for (let i = 0; i < n; i++) {
-      const x = noise[off + i], y = c.b0 * x + c.b2 * x2 - c.a1 * y1 - c.a2 * y2;
+      const x = noise[(off + i) % sr], y = c.b0 * x + c.b2 * x2 - c.a1 * y1 - c.a2 * y2;
       x2 = x1; x1 = x; y2 = y1; y1 = y;
       b[i] = vol * Math.exp(-i / (sr * tau)) * y * 2.5;
     }
@@ -667,6 +730,14 @@ async function synthSong(spec) {
     }
     out(Math.round(t * sr), b, pan, 0.75, 0.45, echo);
   }
+  function piano(t, m, vol, echo, pan) {
+    const n = Math.floor(1.1 * sr), b = new Float32Array(n), w = TAU * mtof(m) / sr;
+    for (let i = 0; i < n; i++) {
+      const tt = i / sr, I = 2.2 * Math.exp(-tt / 0.08) + 0.3;
+      b[i] = vol * 1.1 * (i < 60 ? i / 60 : 1) * (0.7 * Math.exp(-tt / 0.12) + 0.3 * Math.exp(-tt / 0.8)) * Math.sin(w * i + I * Math.sin(2 * w * i));
+    }
+    out(Math.round(t * sr), b, pan, 0.8, 0.35, echo);
+  }
   function celesta(t, m, vol, echo, pan) {
     const n = Math.floor(1.2 * sr), b = new Float32Array(n), o1 = sine(mtof(m)), o2 = sine(mtof(m) * 4);
     const d1 = Math.exp(-1 / (sr * 0.4)), d2 = Math.exp(-1 / (sr * 0.05));
@@ -685,7 +756,7 @@ async function synthSong(spec) {
     }
     out(Math.round(t * sr), b, pan, 0.8, 0.35, echo);
   }
-  const ARP = { bell, epiano, celesta, pluck };
+  const ARP = { bell, epiano, celesta, pluck, piano };
   function pad(t, secs, notes, vol) {
     const n = Math.floor((secs + 1.2) * sr), a = 1 - Math.exp(-TAU * 1400 / sr);
     const att = 0.7 * sr, sus = secs * sr, rel = 1.2 * sr;
@@ -700,11 +771,12 @@ async function synthSong(spec) {
       out(Math.round(t * sr), b, pan, 0.55, 0.9, 0);
     }
   }
-  function kick(t, vol = 0.95) {
+  function kick(t, vol = 0.95, drive = 0) {
     const n = Math.floor(0.45 * sr), b = new Float32Array(n); let ph = 0;
     for (let i = 0; i < n; i++) {
-      ph += TAU * (42 + 113 * Math.exp(-i / (sr * 0.035))) / sr;
-      b[i] = vol * Math.exp(-i / (sr * 0.09)) * Math.sin(ph);
+      ph += TAU * (42 + (drive ? 160 : 113) * Math.exp(-i / (sr * 0.035))) / sr;
+      const v = Math.exp(-i / (sr * (drive ? 0.12 : 0.09))) * Math.sin(ph);
+      b[i] = vol * (drive ? Math.tanh(v * drive) / Math.tanh(drive) : v);
     }
     out(Math.round(t * sr), b, 0, 1, 0.05, 0);
   }
@@ -753,14 +825,22 @@ async function synthSong(spec) {
   }
   function lead(t, m, secs, vol, pan, kind) {
     const n = Math.floor((secs + 0.6) * sr), b = new Float32Array(n), f = mtof(m), on = secs * 0.95 * sr;
-    const phs = [0, 0.33, 0.66], dets = [-0.006, 0, 0.006], a = 1 - Math.exp(-TAU * 3200 / sr);
+    const phs = [0, 0.33, 0.66, 0.15, 0.8], dets = kind === "supersaw" ? [-0.012, -0.006, 0, 0.006, 0.012] : kind === "dist" ? [-0.003, 0.003] : [-0.006, 0, 0.006];
+    const a = 1 - Math.exp(-TAU * (kind === "dist" ? 3600 : kind === "supersaw" ? 5200 : 3200) / sr);
     let ph = 0, ph2 = 0, lp = 0;
     for (let i = 0; i < n; i++) {
-      const tt = i / sr, vib = 1 + 0.008 * Math.min(1, tt / 0.4) * Math.sin(TAU * 5.2 * tt);
+      const tt = i / sr, vib = 1 + (kind === "dist" ? 0.013 : 0.008) * Math.min(1, tt / 0.4) * Math.sin(TAU * 5.2 * tt);
       const atk = kind === "flute" ? 0.06 : 0.03;
       const env = (tt < atk ? tt / atk : 0.75 + 0.25 * Math.exp(-(tt - atk) / 0.2)) * (i < on ? 1 : Math.exp(-(i - on) / (sr * 0.08)));
       let v;
-      if (kind === "saw") {
+      if (kind === "dist" || kind === "supersaw") {
+        // ディストーションギター / スーパーソウ：のこぎり波を重ねて、ギターは歪ませる
+        v = 0;
+        for (let k = 0; k < dets.length; k++) { phs[k] += f * vib * (1 + dets[k]) / sr; if (phs[k] >= 1) phs[k] -= 1; v += phs[k] * 2 - 1; }
+        v /= dets.length;
+        if (kind === "dist") v = Math.tanh(v * 7) * 0.55;
+        lp += a * (v - lp); v = lp * 1.3;
+      } else if (kind === "saw") {
         v = 0;
         for (let k = 0; k < 3; k++) { phs[k] += f * vib * (1 + dets[k]) / sr; if (phs[k] >= 1) phs[k] -= 1; v += phs[k] * 2 - 1; }
         lp += a * (v / 3 - lp); v = lp * 1.3;
@@ -774,6 +854,46 @@ async function synthSong(spec) {
       b[i] = vol * env * v;
     }
     out(Math.round(t * sr), b, pan, 0.8, 0.55, 0.35);
+  }
+  // ---- ロック：ディストーションのパワーコード(根音・5度・オクターブ)を左右2本重ねる ----
+  function gtr(t, root, secs, vol, mute) {
+    const rel = mute ? 0.04 : 0.25, n = Math.floor((secs + rel) * sr), on = secs * sr;
+    const aL = 1 - Math.exp(-TAU * (mute ? 1800 : 3200) / sr);
+    for (const [det, pan] of [[-0.002, -0.8], [0.003, 0.8]]) {
+      const b = new Float32Array(n), ph = [rnd(), rnd(), rnd()];
+      const inc = [root, root + 7, root + 12].map((m) => mtof(m) * (1 + det) / sr);
+      let lp1 = 0, lp2 = 0, hp = 0, xp = 0;
+      for (let i = 0; i < n; i++) {
+        let v = 0;
+        for (let k = 0; k < 3; k++) { ph[k] += inc[k]; if (ph[k] >= 1) ph[k] -= 1; v += ph[k] * 2 - 1; }
+        v = Math.tanh(v * 4.5);
+        lp1 += aL * (v - lp1); lp2 += aL * (lp1 - lp2);      // スピーカーキャビネットのこもり
+        hp = 0.995 * (hp + lp2 - xp); xp = lp2;
+        const tt = i / sr;
+        const env = (tt < 0.003 ? tt / 0.003 : 1) * (mute ? Math.exp(-tt / 0.07) : 0.6 + 0.4 * Math.exp(-tt / 0.5)) * (i < on ? 1 : Math.exp(-(i - on) / (sr * rel * 0.3)));
+        b[i] = vol * env * hp;
+      }
+      out(Math.round(t * sr), b, pan, 1, 0.15, 0);
+    }
+  }
+  const crash = (t, vol = 0.35) => { noiseHit(t, 1.6, 7000, 0.5, 0.45, vol, 0.2, 0.5); noiseHit(t, 0.8, 4500, 0.7, 0.2, vol * 0.5, -0.2, 0.3); };
+  function tom(t, f, vol = 0.6) {
+    const n = Math.floor(0.35 * sr), b = new Float32Array(n); let ph = 0;
+    for (let i = 0; i < n; i++) { ph += TAU * f * (0.6 + 0.4 * Math.exp(-i / (sr * 0.05))) / sr; b[i] = vol * Math.exp(-i / (sr * 0.12)) * Math.sin(ph); }
+    out(Math.round(t * sr), b, (f - 120) / 120, 1, 0.3, 0);
+  }
+  // ---- スーパーソウのコード(音ゲーでよくある裏拍のシンセ) ----
+  function stab(t, notes, secs, vol) {
+    const n = Math.floor((secs + 0.08) * sr), on = secs * sr, a = 1 - Math.exp(-TAU * 5500 / sr);
+    for (const side of [-1, 1]) {
+      const b = new Float32Array(n);
+      for (const m of notes) for (const d of side < 0 ? [-0.011, -0.004, 0.006] : [-0.006, 0.004, 0.011]) {
+        const inc = mtof(m) * (1 + d) / sr; let ph = rnd(), lp = 0;
+        for (let i = 0; i < n; i++) { ph += inc; if (ph >= 1) ph -= 1; lp += a * (ph * 2 - 1 - lp); b[i] += lp; }
+      }
+      for (let i = 0; i < n; i++) { const tt = i / sr; b[i] *= vol * (tt < 0.004 ? tt / 0.004 : 0.65 + 0.35 * Math.exp(-tt / 0.06)) * (i < on ? 1 : Math.exp(-(i - on) / (sr * 0.02))); }
+      out(Math.round(t * sr), b, side * 0.7, 0.9, 0.35, 0.15);
+    }
   }
   function riser(t, secs) {
     const n = Math.floor(secs * sr), b = new Float32Array(n);
@@ -837,15 +957,31 @@ async function synthSong(spec) {
       if (b % 4 === 3) await tick();
       const ch = spec.prog[b % 4], t0 = T(b * 4), B = (x) => T(b * 4 + x);
       if (sec.n === "outro") {
-        if (lb === 0) { const c0 = spec.prog[0]; pad(t0, 4, c0.pad, 0.05); arpNote(t0, c0.arp[0], 0.2, 0.7, 0); arpNote(t0 + beat, c0.arp[4], 0.12, 0.7, 0.4); }
+        if (lb === 0) {
+          const c0 = spec.prog[0];
+          if (spec.rock) { gtr(t0, c0.root + 12, 4 * beat, 0.32, false); crash(t0, 0.45); kick(t0, 0.95); }
+          else { pad(t0, 4, c0.pad, 0.05); arpNote(t0, c0.arp[0], 0.2, 0.7, 0); arpNote(t0 + beat, c0.arp[4], 0.12, 0.7, 0.4); }
+        }
         continue;
       }
-      pad(t0, 4 * beat, ch.pad, sec.pad ?? 0.04);
+      const padVol = sec.pad ?? spec.padVol ?? 0.04;
+      if (padVol > 0) pad(t0, 4 * beat, ch.pad, padVol);
+      if (lb === 0 && sec.crash) crash(t0);
+      const gr = ch.root + 12;
+      if (sec.gtr === "chug") for (let k = 0; k < 8; k++) gtr(B(k * 0.5), gr, 0.4 * beat, k % 2 ? 0.2 : 0.26, true);
+      else if (sec.gtr === "power") { gtr(t0, gr, 1.9 * beat, 0.26, false); gtr(B(2), gr, 1.4 * beat, 0.26, false); gtr(B(3.5), gr, 0.45 * beat, 0.22, true); }
+      else if (sec.gtr === "half") gtr(t0, gr, 3.8 * beat, 0.24, false);
+      if (sec.stab) for (const bt of [0.5, 1.5, 2.5, 3.5]) stab(B(bt), ch.pad.map((m) => m + 12), 0.35 * beat, 0.05);
       if (sec.bass === "half") { bass(t0, ch.root, 1.8 * beat); bass(B(2), ch.root, 1.8 * beat); }
       else if (sec.bass === "eighth") for (const [bt, oct] of [[0, 0], [1.5, 0], [2, 0], [3, 0], [3.5, 12]]) bass(B(bt), ch.root + oct, 0.45 * beat);
       else if (sec.bass === "offbeat") for (const bt of [0.5, 1.5, 2.5, 3.5]) bass(B(bt), ch.root + 12, 0.4 * beat, 0.36);
-      if (sec.kick === "half") { kick(t0); kick(B(2)); }
-      else if (sec.kick === "four") for (let k = 0; k < 4; k++) kick(B(k));
+      const kd = spec.hardKick ? 3 : 0;
+      if (sec.kick === "half") { kick(t0, 0.95, kd); kick(B(2), 0.95, kd); }
+      else if (sec.kick === "four") for (let k = 0; k < 4; k++) kick(B(k), 0.95, kd);
+      else if (sec.kick === "rock") for (const k of [0, 1.5, 2]) kick(B(k), 0.95, 1.5);
+      else if (sec.kick === "halftime") for (const k of [0, 2.5]) kick(B(k), 0.95, 1.5);
+      if (sec.snare === true) { snare(B(1), 0.5); snare(B(3), 0.5); }
+      else if (sec.snare === "half") snare(B(2), 0.55);
       if (sec.clap) { clap(B(1)); clap(B(3)); }
       if (sec.rim) { rim(B(1), 0.35); rim(B(3), 0.35); rim(B(2.75), 0.15); }
       if (sec.hat) {
@@ -860,12 +996,13 @@ async function synthSong(spec) {
       else if (sec.arp === "8") for (let i = 0; i < 8; i++) arpNote(B(i * 0.5), ch.arp[i], i % 2 ? 0.09 : 0.13, 0.5, (i % 2 ? 1 : -1) * (spec.vocal ? 0.75 : 0.35) * (i % 4 < 2 ? 1 : 0.6));
       else if (sec.arp === "16") for (let i = 0; i < 16; i++) arpNote(B(i * 0.25), ch.arp[i % 8] + (i >= 8 ? 12 : 0), i % 4 === 0 ? 0.12 : 0.07, 0.3, (i % 2 ? 0.7 : -0.7));
       if (sec.mel) {
-        const mel = spec.melodies.main, mb = lb % 8;
+        // メロディは何小節ぶんでもよい(リフは2小節をくり返す)
+        const mel = spec.melodies[sec.melSet || "main"], len = Math.ceil((Math.max(...mel.map((x) => x[0] + x[2])) - 1e-6) / 4), mb = lb % len;
         for (const [bt, m, l] of mel) {
           if (Math.floor(bt / 4) !== mb) continue;
-          const tt = B(bt - mb * 4);
-          lead(tt, m, l * beat, sec.melVol ?? 0.15, 0, spec.timbre.lead);
-          if (sec.mel === "oct") lead(tt, m + 12, l * beat, 0.05, 0.3, spec.timbre.lead);
+          const tt = B(bt - mb * 4), mm = m + (sec.melOct || 0);
+          lead(tt, mm, l * beat, sec.melVol ?? 0.15, 0, sec.melTimbre || spec.timbre.lead);
+          if (sec.mel === "oct") lead(tt, mm + 12, l * beat, 0.05, 0.3, sec.melTimbre || spec.timbre.lead);
         }
       }
       if (sec.voice) {
@@ -877,6 +1014,7 @@ async function synthSong(spec) {
       if (lb === sec.bars - 1) {
         if (sec.riser) riser(t0, 4 * beat);
         if (sec.roll) for (let k = 0; k < 8; k++) snare(B(2 + k * 0.25), 0.08 + k * 0.05);
+        if (sec.fill) { snare(B(2), 0.4); snare(B(2.5), 0.35); [[2.75, 220], [3, 180], [3.25, 150], [3.5, 120], [3.75, 95]].forEach(([bt, f]) => tom(B(bt), f)); }
       }
     }
     bar0 += sec.bars;
@@ -1072,7 +1210,8 @@ async function analyzeAudio(buf, onStep) {
     }
     return [best, bph];
   };
-  const prior = (bpm) => Math.exp(-0.5 * Math.pow(Math.log2(bpm / 118) / 0.55, 2));
+  // 音ゲーの曲は速いものが多いので、140 BPM を中心に広めに見る
+  const prior = (bpm) => Math.exp(-0.5 * Math.pow(Math.log2(bpm / 140) / 0.8, 2));
   let bestBpm = 120, bestScore = -1, bestPh = 0;
   const scan = (from, to, stepB) => {
     for (let bpm = from; bpm <= to; bpm += stepB) {
@@ -1080,7 +1219,7 @@ async function analyzeAudio(buf, onStep) {
       if (s > bestScore) { bestScore = s; bestBpm = bpm; bestPh = ph; }
     }
   };
-  scan(70, 180, 0.5); await tick();
+  scan(70, 210, 0.5); await tick();
   const c0 = bestBpm; scan(c0 - 0.6, c0 + 0.6, 0.02);
   // 拍の安定度：拍の位置の立ち上がりが、拍と拍のあいだと比べてどれだけ強いか
   const beatFrames = 60 / bestBpm / hopSec;
@@ -1368,6 +1507,10 @@ function makeChart(F, key, style = "rhythm") {
     if (!lastTr || n.t - lastTr.t > 0.75 || lastTr.N !== n.N) { sid++; n.head = true; }
     n.sid = sid; lastTr = n;
   }
+  // 流れの最後は「終点」：全部取りきったら、流れ全体で1コンボ
+  const lastOf = new Map();
+  for (const n of out) if (n.type === "trail") lastOf.set(n.sid, n);
+  for (const n of lastOf.values()) n.tail = true;
   const counts = { tap: 0, chord: 0, trail: 0, flick: 0 };
   for (const n of out) { if (n.type === "chord") { if (!n.second) counts.chord++; } else counts[n.type]++; }
   const ns = plan.map((s) => s.n);
@@ -1542,6 +1685,7 @@ const bokeh = Array.from({ length: 70 }, () => ({ x: srand(), y: srand(), r: 6 +
 const bubbles = Array.from({ length: 70 }, () => ({ x: srand(), y: srand(), r: 2 + srand() * 9, sp: 0.4 + srand() * 1.2, ph: srand() * 6.28 }));
 const jellies = Array.from({ length: 6 }, () => ({ x: srand(), y: 0.2 + srand() * 0.6, r: 10 + srand() * 18, ci: Math.floor(srand() * 3), ph: srand() * 6.28 }));
 const flakes = Array.from({ length: 130 }, () => ({ x: srand(), y: srand(), r: 0.8 + srand() * 2.4, sp: 0.4 + srand() * 1, ph: srand() * 6.28 }));
+const towers = Array.from({ length: 46 }, () => ({ x: srand(), w: 0.02 + srand() * 0.05, h: 0.08 + srand() * srand() * 0.5, seed: Math.floor(srand() * 1e6), ci: Math.floor(srand() * 4) }));
 const clouds = Array.from({ length: 7 }, () => ({ x: srand(), y: 0.25 + srand() * 0.5, w: 0.25 + srand() * 0.3, sp: 0.004 + srand() * 0.006 }));
 let skyParts = [];
 
@@ -1573,6 +1717,13 @@ const THEMES = {
     sky: (e, y) => [[0, "hsl(255,50%,8%)"], [y * 0.55, "hsl(290,50%,18%)"], [y * 0.9, `hsl(330,70%,${33 + e * 8}%)`], [y, `hsl(25,95%,${56 + e * 6}%)`], [y + 0.02, "hsl(285,40%,10%)"], [1, "hsl(270,45%,5%)"]],
     road: () => ["hsla(320,60%,40%,0.4)", "hsla(275,50%,12%,0.8)"],
     layers: ["stars", "clouds", "fireworks"], deco: "lanterns",
+  },
+  neon: {
+    name: "ネオン・シティ", swatch: "linear-gradient(135deg,#1b0b3a,#ff4fd8 55%,#4ff3ff)",
+    bulbs: [COL.cyan, COL.rose, COL.violet, COL.gold], aurora: [COL.rose, COL.cyan, COL.violet], horizon: COL.rose,
+    sky: (e, y) => [[0, "hsl(265,65%,5%)"], [y * 0.6, "hsl(285,60%,12%)"], [y * 0.95, `hsl(315,85%,${32 + e * 12}%)`], [y, `hsl(330,95%,${55 + e * 8}%)`], [y + 0.02, "hsl(270,55%,8%)"], [1, "hsl(260,60%,4%)"]],
+    road: () => ["hsla(300,70%,30%,0.45)", "hsla(262,60%,8%,0.85)"],
+    layers: ["stars", "lasers", "skyline"], deco: "neon",
   },
 };
 
@@ -1756,6 +1907,30 @@ function drawWorld(t, view, dt) {
         g.beginPath(); g.ellipse(x, y, w * 0.5, w * 0.12, 0, 0, Math.PI * 2); g.fill();
       }
       g.globalCompositeOperation = "lighter";
+    } else if (L === "skyline") {
+      // ビル群のシルエットと、ともる窓
+      for (const tw of towers) {
+        const x = wrap(tw.x * spanX - pan * 0.5, spanX) - ext, w = tw.w * VW, h = tw.h * hy;
+        g.globalCompositeOperation = "source-over"; g.globalAlpha = 1; g.fillStyle = "hsl(268,55%,7%)";
+        g.fillRect(x, hy - h, w, h);
+        g.globalCompositeOperation = "lighter";
+        let sd = tw.seed;
+        for (let wy = hy - h + 5; wy < hy - 4; wy += 7) for (let wx = x + 3; wx < x + w - 3; wx += 6) {
+          sd = (sd * 16807) % 2147483647;
+          if (sd % 5 > 1) continue;
+          g.globalAlpha = 0.35 + 0.35 * e; g.fillStyle = rgba(th.bulbs[(sd >> 3) % th.bulbs.length], 1); g.fillRect(wx, wy, 2, 3);
+        }
+        glow(th.bulbs[tw.ci], x + w / 2, hy - h, 6, 0.6 * (0.5 + 0.5 * Math.sin(t * 3 + tw.seed)));
+      }
+    } else if (L === "lasers") {
+      // 地平線から伸びるレーザー。拍に合わせて光る
+      for (let i = 0; i < 6; i++) {
+        const ang = -Math.PI / 2 + Math.sin(t * 0.6 + i * 1.7) * 0.9, c = th.bulbs[i % 2];
+        const x0 = cx + (i - 2.5) * rw * 0.25, L2 = VH * 1.2;
+        g.globalAlpha = (0.12 + 0.35 * pulse) * (0.4 + e);
+        g.strokeStyle = rgba(c, 1); g.lineWidth = 2 + 3 * pulse;
+        g.beginPath(); g.moveTo(x0, hy); g.lineTo(x0 + Math.cos(ang) * L2, hy + Math.sin(ang) * L2); g.stroke();
+      }
     } else if (L === "fireworks") {
       for (const p of skyParts) {
         p.age += dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 40 * dt; p.vx *= 0.985; p.vy *= 0.985;
@@ -1882,6 +2057,22 @@ function drawWorld(t, view, dt) {
           const u = i / 16, q = proj(bt - t, -1.2 + 2.4 * u);
           glow(bulb(i + k), q.x, top + Math.sin(Math.PI * u) * rw * 0.25 * S, 9 * S * (1 + pulse * 0.4), near * (0.6 + 0.4 * e));
         }
+      }
+    } else if (th.deco === "neon") {
+      // 両脇のネオン柱と、小節ごとのネオンゲート
+      sides.forEach((q, j) => {
+        const c = bulb(k + j), top = q.y - rw * 0.7 * S;
+        g.strokeStyle = rgba(c, a * 2.2); g.lineWidth = Math.max(1.5, 4 * S);
+        g.beginPath(); g.moveTo(q.x, q.y); g.lineTo(q.x, top); g.stroke();
+        glow(c, q.x, top, 14 * S * (1 + pulse * 0.5), a * 2);
+      });
+      if (isBar) {
+        const ql = proj(bt - t, -1.3), qr = proj(bt - t, 1.3), top = p.y - rw * 1.0 * S, aa = near * (0.6 + 0.4 * e);
+        for (const [c, inset] of [[COL.rose, 0], [COL.cyan, 8 * S]]) {
+          g.strokeStyle = rgba(c, aa); g.lineWidth = Math.max(1.5, 5 * S);
+          g.beginPath(); g.moveTo(ql.x + inset, ql.y); g.lineTo(ql.x + inset, top + inset); g.lineTo(qr.x - inset, top + inset); g.lineTo(qr.x - inset, qr.y); g.stroke();
+        }
+        for (const q of [[ql.x, top], [qr.x, top], [p.x, top]]) glow(COL.white, q[0], q[1], 18 * S * (1 + pulse), aa);
       }
     } else if (th.deco === "lanterns") {
       sides.forEach((q, j) => {
@@ -2136,7 +2327,7 @@ function ensureAC() {
   return ac;
 }
 const reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-const settings = { diff: "normal", style: "rhythm", stage: "auto", hints: true };
+const settings = { diff: "normal", style: "rhythm", stage: "auto", hints: true, sound: true };
 try { Object.assign(settings, JSON.parse(localStorage.getItem("lumina-settings") || "{}")); } catch (_) {}
 if (!DIFF[settings.diff]) settings.diff = "normal";
 const saveSettings = () => { try { localStorage.setItem("lumina-settings", JSON.stringify(settings)); } catch (_) {} };
@@ -2180,11 +2371,39 @@ function notePos(n) { const p = proj(0, laneX(n.lane, n.N || LANES.length)); ret
 function songTime() { return ac.currentTime - play.startAt - (ac.outputLatency || 0); }
 const gradeOf = (err) => err < 0.05 ? "BRILLIANT" : err < 0.1 ? "GREAT" : "GOOD";
 
+// ---- ノーツ音：ノーツの種類ごとに短い効果音を、その場で作っておく ----
+const SE = {};
+function makeSE() {
+  if (SE.tap || !ac) return;
+  const sr = ac.sampleRate, TAU = Math.PI * 2;
+  const mk = (secs, fn) => { const n = Math.floor(secs * sr), b = ac.createBuffer(1, n, sr), d = b.getChannelData(0); for (let i = 0; i < n; i++) d[i] = fn(i / sr); return b; };
+  const nz = () => Math.random() * 2 - 1;
+  SE.tap = mk(0.08, (t) => (0.55 * Math.sin(TAU * 1650 * t) + 0.5 * nz() * Math.exp(-t / 0.004)) * Math.exp(-t / 0.022));
+  SE.chord = mk(0.14, (t) => (0.45 * Math.sin(TAU * 1320 * t) + 0.35 * Math.sin(TAU * 1980 * t) + 0.5 * nz() * Math.exp(-t / 0.006)) * Math.exp(-t / 0.04));
+  SE.flick = mk(0.2, (t) => (0.5 * Math.sin(TAU * (900 + 5200 * t) * t) + 0.3 * nz() * Math.exp(-t / 0.05)) * Math.exp(-t / 0.06));
+  SE.head = mk(0.14, (t) => (0.45 * Math.sin(TAU * 1319 * t) + 0.3 * Math.sin(TAU * 2637 * t) + 0.35 * nz() * Math.exp(-t / 0.004)) * Math.exp(-t / 0.05));
+  SE.hold = mk(0.12, (t) => 0.32 * Math.sin(TAU * 2637 * t) * Math.exp(-t / 0.04));
+}
+function playSE(kind, vol = 1) {
+  if (!settings.sound || !ac || !SE[kind]) return;
+  const s = ac.createBufferSource(), gn = ac.createGain();
+  s.buffer = SE[kind]; gn.gain.value = 0.55 * vol;
+  s.connect(gn); gn.connect(ac.destination); s.start();
+}
+// 光の帯(ロングノーツ)：途中のMISSがあれば、その流れはコンボにならない
+function trailDone(n) {
+  if (!n.tail || play.trailFail.has(n.sid)) return;
+  play.combo++; play.maxCombo = Math.max(play.maxCombo, play.combo);
+  const p = notePos(n); popup("光の帯 クリア", p.x, p.y - 60, COL.gold);
+}
+
 function award(n, grade) {
   n.judged = true;
   const gr = GRADES[grade];
   play.sum += gr.v; play.counts[grade]++;
-  play.combo++; play.maxCombo = Math.max(play.maxCombo, play.combo);
+  if (n.type === "trail") trailDone(n);
+  else { play.combo++; play.maxCombo = Math.max(play.maxCombo, play.combo); }
+  playSE(n.type === "trail" ? "head" : n.type === "chord" ? "chord" : n.type === "flick" ? "flick" : "tap", n.type === "chord" ? 0.75 : 1);
   const p = notePos(n), col = n.type === "chord" ? COL.rose : n.type === "flick" ? COL.lime : gr.c;
   burst(p.x, p.y, col, n.type === "tap" ? 16 : 22, n.type === "tap" ? 1 : 1.2);
   if (n.type === "flick") {
@@ -2199,6 +2418,7 @@ function award(n, grade) {
 }
 function miss(n) {
   n.judged = true; play.combo = 0; play.counts.MISS++;
+  if (n.type === "trail") play.trailFail.add(n.sid);
   const p = notePos(n); popup("MISS", p.x, p.y - 30, [170, 160, 210]);
 }
 function hit(lane) {
@@ -2212,10 +2432,10 @@ function hit(lane) {
     const d = Math.abs(n.t - t);
     if (d < bd) { bd = d; best = n; }
   }
-  if (!best) { const p = proj(0, LANES[lane] ?? 0); burst(p.x, p.y - 10, COL.violet, 4, 0.4); return null; }
+  if (!best) { const p = proj(0, LANES[lane] ?? 0); burst(p.x, p.y - 10, COL.violet, 4, 0.4); playSE("tap", 0.35); return null; }
   if (best.type !== "flick") { award(best, gradeOf(bd)); return null; }
   // 流れ星：押した時刻で判定を決め、はじく動きを待つ
-  best.armed = true; best.armT = t; best.err = bd;
+  best.armed = true; best.armT = t; best.err = bd; playSE("tap", 0.5);
   const p = notePos(best); burst(p.x, p.y, COL.lime, 10, 0.5);
   return best;
 }
@@ -2236,8 +2456,9 @@ function updateJudge(t) {
       // ロングノーツの途中：その位置を押さえている指(またはキー)があれば取れる。離すタイミングの判定はなし
       if (t >= n.t) {
         if (holding(n)) {
-          n.judged = true; P.sum += 1; P.counts.TRAIL++; P.combo++; P.maxCombo = Math.max(P.maxCombo, P.combo);
+          n.judged = true; P.sum += 1; P.counts.TRAIL++;
           const p = notePos(n); burst(p.x, p.y + 16, COL.gold, 7, 0.5);
+          playSE("hold", 0.8); trailDone(n);
         } else if (t > n.t + 0.08) miss(n);
       }
     } else if (n.armed) { if (t - n.armT > 0.4) { n.armed = false; miss(n); } }
@@ -2248,7 +2469,7 @@ function updateJudge(t) {
 
 function startGame() {
   const S = song(); if (!S || !S.F) return;
-  ensureAC();
+  ensureAC(); makeSE();
   const chart = chartFor(S);
   const src = ac.createBufferSource(); src.buffer = S.buffer;
   const gain = ac.createGain(); gain.gain.value = 0.9;
@@ -2267,7 +2488,7 @@ function startGame() {
   }
   play = {
     src, startAt, lead: chart.lead, notes, head: 0, sum: 0, combo: 0, maxCombo: 0,
-    counts: { BRILLIANT: 0, GREAT: 0, GOOD: 0, TRAIL: 0, MISS: 0 },
+    counts: { BRILLIANT: 0, GREAT: 0, GOOD: 0, TRAIL: 0, MISS: 0 }, trailFail: new Set(),
     view: { ...viewFor(S, chart), notes, hints: settings.hints },
     lyrics: S.lyricMap || [],
   };
@@ -2431,8 +2652,8 @@ requestAnimationFrame(frame);
  * ===================================================================== */
 const statusEl = $("#status");
 const fmtTime = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
-const SHORT = { promenade: "遊歩道", aquarium: "アクアリウム", snow: "雪の森", carnival: "カーニバル" };
-const DISC = { promenade: "var(--gold)", aquarium: "var(--cyan)", snow: "#cdebff", carnival: "#ffaa6e" };
+const SHORT = { promenade: "遊歩道", aquarium: "アクアリウム", snow: "雪の森", carnival: "カーニバル", neon: "ネオン・シティ" };
+const DISC = { promenade: "var(--gold)", aquarium: "var(--cyan)", snow: "#cdebff", carnival: "#ffaa6e", neon: "#ff4fd8" };
 
 function renderSongList() {
   const list = $("#songList"); list.innerHTML = "";
@@ -2645,6 +2866,8 @@ $("#openHowto").addEventListener("click", () => showOverlay("#howto", true));
 $("#closeHowto").addEventListener("click", () => showOverlay("#howto", false));
 $("#openAnalysis").addEventListener("click", openAnalysis);
 $("#closeAnalysis").addEventListener("click", () => showOverlay("#analysis", false));
+$("#soundToggle").checked = settings.sound;
+$("#soundToggle").addEventListener("change", (e) => { settings.sound = e.target.checked; saveSettings(); if (settings.sound) { ensureAC(); makeSE(); playSE("tap"); } });
 $("#hintToggle").checked = settings.hints;
 $("#hintToggle").addEventListener("change", (e) => { settings.hints = e.target.checked; saveSettings(); });
 bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style");
