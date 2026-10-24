@@ -259,11 +259,6 @@ kbd { font: 0.74rem var(--body); padding: 1px 6px; border: 1px solid var(--line)
     </div>
 
     <div class="group">
-      <span class="label">ステージ</span>
-      <div class="chips" id="stageChips" role="group" aria-label="ステージ"></div>
-    </div>
-
-    <div class="group">
       <span class="label">むずかしさ</span>
       <div class="seg four" role="group" aria-label="むずかしさ" id="diffSeg">
         <button type="button" data-v="easy">Easy</button>
@@ -2148,7 +2143,8 @@ function drawWorld(t, view, dt) {
     g.beginPath(); pts.forEach((q, k) => (k ? g.lineTo(q[2].x, q[2].y) : g.moveTo(q[2].x, q[2].y))); g.stroke();
     // 帯の上を手前へ流れるきらめき
     for (let k = 0; k < steps; k++) {
-      const u = (k + ((t * 4) % 1)) / steps, j = Math.min(steps - 1, Math.floor(u * steps)), q = pts[j][2];
+      // 曲が始まる前は時刻がマイナスなので、0〜1 に折り返してから使う
+      const u = (k + wrap(t * 4, 1)) / steps, j = Math.max(0, Math.min(steps - 1, Math.floor(u * steps))), q = pts[j][2];
       glow(COL.gold, q.x, q.y, 14 * q.s, 0.8 * fade);
     }
     for (const side of [0, 1]) {
@@ -2327,7 +2323,7 @@ function ensureAC() {
   return ac;
 }
 const reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-const settings = { diff: "normal", style: "rhythm", stage: "auto", hints: true, sound: true };
+const settings = { diff: "normal", style: "rhythm", hints: true, sound: true };
 try { Object.assign(settings, JSON.parse(localStorage.getItem("lumina-settings") || "{}")); } catch (_) {}
 if (!DIFF[settings.diff]) settings.diff = "normal";
 const saveSettings = () => { try { localStorage.setItem("lumina-settings", JSON.stringify(settings)); } catch (_) {} };
@@ -2343,7 +2339,8 @@ const song = () => songs.get(currentId);
 let state = "menu", play = null;
 const player = { x: 0, target: 0 };
 
-function themeFor(S) { return settings.stage === "auto" ? S.theme : settings.stage; }
+// ステージ(背景)は曲ごとに決まっている
+function themeFor(S) { return S.theme; }
 const cache = new Map();
 function chartFor(S) {
   const k = `${S.id}|${settings.diff}|${settings.style}`;
@@ -2600,6 +2597,15 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* ---------- メインループ ---------- */
+// 描画で予期しないエラーが出ても、ゲームは止めずに続ける(エラーは1回だけ記録)
+let drawErrLogged = false;
+function safeDraw(t, v, dt) {
+  try { drawWorld(t, v, dt); }
+  catch (err) {
+    if (!drawErrLogged) { console.error(err); drawErrLogged = true; }
+    g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+  }
+}
 let last = performance.now(), demoClock = 0, demo = null;
 const idleView = { beat: 0.5, t0: 0, down: 0, lead: 1.7, notes: [], theme: "promenade", course: STRAIGHT, energyAt: () => 0.45 };
 function frame(nowMs) {
@@ -2612,7 +2618,7 @@ function frame(nowMs) {
     const v = play.view;
     v.countdown = t < 0 ? String(Math.ceil(-t)) : null;
     v.zones = settings.hints && t < 0;
-    drawWorld(t, v, dt);
+    safeDraw(t, v, dt);
     const total = play.notes.length || 1;
     $("#score").textContent = String(Math.round(1e6 * play.sum / total)).padStart(7, "0");
     $("#combo").textContent = play.combo;
@@ -2641,7 +2647,7 @@ function frame(nowMs) {
       }
       v = { ...v, notes: v.notes.filter((n) => n.t > t) };
     }
-    drawWorld(t, v, dt);
+    safeDraw(t, v, dt);
   }
   requestAnimationFrame(frame);
 }
@@ -2671,16 +2677,6 @@ function renderSongList() {
     list.appendChild(b);
   }
   $("#pickFile").setAttribute("aria-pressed", String(currentId === "file"));
-}
-function renderChips() {
-  const box = $("#stageChips"); box.innerHTML = "";
-  for (const [k, name] of [["auto", "曲におまかせ"], ...Object.entries(THEMES).map(([k2, th]) => [k2, th.name])]) {
-    const b = document.createElement("button");
-    b.type = "button"; b.setAttribute("aria-pressed", String(settings.stage === k));
-    b.innerHTML = `<i style="background:${k === "auto" ? "conic-gradient(var(--gold),var(--cyan),var(--rose),var(--gold))" : THEMES[k].swatch}"></i>${name}`;
-    b.addEventListener("click", () => { settings.stage = k; saveSettings(); renderChips(); refresh(); });
-    box.appendChild(b);
-  }
 }
 function bindSeg(id, key) {
   for (const b of document.querySelectorAll(`#${id} button`)) {
@@ -2871,7 +2867,6 @@ $("#soundToggle").addEventListener("change", (e) => { settings.sound = e.target.
 $("#hintToggle").checked = settings.hints;
 $("#hintToggle").addEventListener("change", (e) => { settings.hints = e.target.checked; saveSettings(); });
 bindSeg("diffSeg", "diff"); bindSeg("styleSeg", "style");
-renderChips();
 window.addEventListener("resize", () => { if (state === "menu") drawPreview(); });
 
 (async function boot() {
