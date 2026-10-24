@@ -35,6 +35,8 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 #stage { position: fixed; inset: 0; display: block; touch-action: none; }
+/* ゲーム画面では、長押し・右クリックの保存メニューや文字の選択を出さない */
+#stage, #hud, #lyric { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 button, textarea { font: inherit; color: inherit; }
 button:focus-visible, label:focus-within, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
@@ -634,6 +636,60 @@ const SONGS = [
     ],
   },
   {
+    id: "comet", title: "ハイパー・コメット", theme: "snow", bpm: 240, hardKick: true,
+    timbre: { arp: "piano", lead: "supersaw" },
+    // 240 BPM のハッピーハードコア風。D メジャーで G - A - F#m - Bm
+    prog: [
+      { root: 43, pad: [55, 59, 62, 66], arp: [74, 79, 83, 86, 91, 86, 83, 79] },
+      { root: 45, pad: [57, 61, 64, 69], arp: [76, 81, 85, 88, 93, 88, 85, 81] },
+      { root: 42, pad: [54, 57, 61, 66], arp: [73, 78, 81, 85, 90, 85, 81, 78] },
+      { root: 47, pad: [59, 62, 66, 71], arp: [74, 78, 83, 86, 90, 86, 83, 78] },
+    ],
+    melodies: { main: [
+      [0, 78, 1], [1, 79, 1], [2, 81, 2], [4, 83, 1], [5, 81, 1], [6, 76, 2],
+      [8, 78, 1], [9, 81, 1], [10, 85, 1], [11, 86, 1], [12, 83, 2], [14, 81, 2],
+      [16, 86, 1], [17, 85, 1], [18, 83, 2], [20, 81, 1], [21, 83, 1], [22, 85, 2],
+      [24, 86, 1], [25, 88, 1], [26, 90, 2], [28, 86, 4],
+    ] },
+    sparkle: [90, 93, 95, 98],
+    sections: [
+      { n: "intro", bars: 8, pad: 0.05, arp: "8", riser: true },
+      { n: "A", bars: 16, pad: 0.03, bass: "offbeat", kick: "four", hat: "8off", arp: "8", stab: true, crash: true },
+      { n: "B", bars: 8, pad: 0.035, bass: "offbeat", kick: "four", clap: true, hat: "8off", arp: "8", mel: "lead", melVol: 0.11, roll: true, riser: true },
+      { n: "C", bars: 16, bass: "offbeat", kick: "four", clap: true, hat: "8", arp: "8", stab: true, mel: "oct", melVol: 0.13, sparkle: true, crash: true },
+      { n: "D", bars: 8, pad: 0.06, arp: "8", mel: "lead", melVol: 0.1, roll: true, riser: true },
+      { n: "C", bars: 16, bass: "offbeat", kick: "four", clap: true, hat: "8", arp: "8", stab: true, mel: "oct", melVol: 0.13, sparkle: true, crash: true },
+      { n: "outro", bars: 2 },
+    ],
+  },
+  {
+    id: "critical", title: "臨界スピードスター", theme: "neon", bpm: 290, hardKick: 6,
+    timbre: { arp: "pluck", lead: "supersaw" },
+    // 290 BPM のスピードコア風。強く歪ませたキックと、A マイナーの Am - F - C - G
+    prog: [
+      { root: 45, pad: [57, 60, 64, 69], arp: [69, 72, 76, 81, 84, 81, 76, 72] },
+      { root: 41, pad: [53, 57, 60, 65], arp: [65, 69, 72, 77, 81, 77, 72, 69] },
+      { root: 48, pad: [55, 60, 64, 67], arp: [67, 72, 76, 79, 84, 79, 76, 72] },
+      { root: 43, pad: [55, 59, 62, 67], arp: [67, 71, 74, 79, 83, 79, 74, 71] },
+    ],
+    melodies: { main: [
+      [0, 81, 1], [1, 79, 1], [2, 81, 1], [3, 84, 1], [4, 84, 2], [6, 81, 1], [7, 77, 1],
+      [8, 79, 1], [9, 76, 1], [10, 79, 1], [11, 84, 1], [12, 83, 2], [14, 79, 2],
+      [16, 81, 1], [17, 84, 1], [18, 88, 1], [19, 86, 1], [20, 84, 2], [22, 81, 1], [23, 77, 1],
+      [24, 79, 1], [25, 84, 1], [26, 88, 1], [27, 91, 1], [28, 86, 4],
+    ] },
+    sparkle: [88, 91, 93, 96],
+    sections: [
+      { n: "intro", bars: 8, pad: 0.05, arp: "8", riser: true },
+      { n: "A", bars: 16, pad: 0.03, bass: "offbeat", kick: "four", hat: "8off", stab: true, crash: true },
+      { n: "B", bars: 8, pad: 0.035, bass: "offbeat", kick: "four", clap: true, hat: "8off", arp: "8", mel: "lead", melVol: 0.11, roll: true, riser: true },
+      { n: "C", bars: 16, bass: "offbeat", kick: "four", clap: true, hat: "8", stab: true, mel: "oct", melVol: 0.13, crash: true },
+      { n: "D", bars: 8, pad: 0.06, arp: "8", mel: "lead", melVol: 0.1, roll: true, riser: true },
+      { n: "C", bars: 16, bass: "offbeat", kick: "four", clap: true, hat: "8", stab: true, mel: "oct", melVol: 0.13, sparkle: true, crash: true },
+      { n: "outro", bars: 2 },
+    ],
+  },
+  {
     id: "song", title: "灯りのうた", theme: "promenade", bpm: 104, vocal: true,
     timbre: { arp: "epiano", lead: "tri" },
     prog: [
@@ -970,7 +1026,7 @@ async function synthSong(spec) {
       if (sec.bass === "half") { bass(t0, ch.root, 1.8 * beat); bass(B(2), ch.root, 1.8 * beat); }
       else if (sec.bass === "eighth") for (const [bt, oct] of [[0, 0], [1.5, 0], [2, 0], [3, 0], [3.5, 12]]) bass(B(bt), ch.root + oct, 0.45 * beat);
       else if (sec.bass === "offbeat") for (const bt of [0.5, 1.5, 2.5, 3.5]) bass(B(bt), ch.root + 12, 0.4 * beat, 0.36);
-      const kd = spec.hardKick ? 3 : 0;
+      const kd = spec.hardKick === true ? 3 : spec.hardKick || 0;
       if (sec.kick === "half") { kick(t0, 0.95, kd); kick(B(2), 0.95, kd); }
       else if (sec.kick === "four") for (let k = 0; k < 4; k++) kick(B(k), 0.95, kd);
       else if (sec.kick === "rock") for (const k of [0, 1.5, 2]) kick(B(k), 0.95, 1.5);
@@ -1216,6 +1272,15 @@ async function analyzeAudio(buf, onStep) {
   };
   scan(70, 210, 0.5); await tick();
   const c0 = bestBpm; scan(c0 - 0.6, c0 + 0.6, 0.02);
+  // とても速い曲(230〜300 BPM)は、半分のテンポに見えやすい。
+  // 拍の裏にも拍と同じくらい強いキック(低音の立ち上がり)があれば、本当は倍の速さとみなす。
+  // 300 BPM を超える倍は、低音が細かく動く普通の速さの曲であることが多いので選ばない
+  if (bestBpm * 2 <= 300) {
+    const p1 = 60 / bestBpm / hopSec, near = (f) => { let m = 0; for (let k = -2; k <= 2; k++) m = Math.max(m, low[Math.max(0, Math.min(frames - 1, f + k))]); return m; };
+    let on = 0, off = 0;
+    for (let q = bestPh; q < frames - p1; q += p1) { on += near(Math.round(q)); off += near(Math.round(q + p1 / 2)); }
+    if (on > 0 && off / on > 0.9) bestBpm *= 2;
+  }
   // 拍の安定度：拍の位置の立ち上がりが、拍と拍のあいだと比べてどれだけ強いか
   const beatFrames = 60 / bestBpm / hopSec;
   let onB = 0, offB = 0, nb = 0;
@@ -1295,7 +1360,7 @@ async function analyzeAudio(buf, onStep) {
 const DIFF = {
   easy:   { label: "Easy",   sub: 1, perBar: 4,  gap: 0.4,   chord: 0.04, triple: 0,    flick: 0,    lead: 2.1,  trailFromHigh: false, streamStep: 1,   vSub: 2, sustain: 1.5 },
   normal: { label: "Normal", sub: 2, perBar: 6,  gap: 0.2,   chord: 0.08, triple: 0,    flick: 0.05, lead: 1.7,  trailFromHigh: true,  streamStep: 1,   vSub: 4, sustain: 1.0 },
-  hard:   { label: "Hard",   sub: 4, perBar: 9,  gap: 0.12,  chord: 0.11, triple: 0,    flick: 0.08, lead: 1.4,  trailFromHigh: true,  streamStep: 0.5, vSub: 4, sustain: 0.9 },
+  hard:   { label: "Hard",   sub: 4, perBar: 9,  gap: 0.1,   chord: 0.11, triple: 0,    flick: 0.08, lead: 1.4,  trailFromHigh: true,  streamStep: 0.5, vSub: 4, sustain: 0.9 },
   pro:    { label: "Pro",    sub: 4, perBar: 14, gap: 0.085, chord: 0.13, triple: 0.05, flick: 0.1,  lead: 1.15, trailFromHigh: true,  streamStep: 0.5, vSub: 4, sustain: 0.9 },
 };
 
@@ -2539,6 +2604,11 @@ cv.addEventListener("pointermove", (e) => {
   if (!p.drag && Math.abs(dx) > 12) p.drag = true;
   if (p.drag) player.target = (v.x - geo.cx) / geo.rw;
 });
+// 右クリック・長押しで「名前を付けて画像を保存」などのメニューが出ないようにする
+cv.addEventListener("contextmenu", (e) => e.preventDefault());
+cv.addEventListener("dragstart", (e) => e.preventDefault());
+document.addEventListener("contextmenu", (e) => { if (state === "play") e.preventDefault(); });
+document.addEventListener("selectstart", (e) => { if (state === "play") e.preventDefault(); });
 const endPtr = (e) => {
   const p = ptrs.get(e.pointerId);
   if (p && p.flick && p.flick.armed) { p.flick.armed = false; miss(p.flick); }
